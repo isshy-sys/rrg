@@ -69,7 +69,7 @@ export default function ErrorScreen({
   } else if (error instanceof ValidationError) {
     errorMessage = error.userMessage;
     errorType = 'validation';
-    errorDetails = error.details;
+    errorDetails = error.details as Record<string, unknown>;
   } else if (error instanceof RecordingError) {
     errorMessage = error.message;
     errorType = 'recording';
@@ -79,7 +79,7 @@ export default function ErrorScreen({
   } else if (error instanceof APIError) {
     errorMessage = error.userMessage;
     errorType = 'generic';
-    errorDetails = error.details;
+    errorDetails = error.details as Record<string, unknown>;
   } else if (error instanceof Error) {
     errorMessage = error.message;
     errorType = 'generic';
