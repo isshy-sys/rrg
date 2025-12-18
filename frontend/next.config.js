@@ -4,9 +4,11 @@ const path = require('path');
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
+  distDir: 'out',
   images: {
     unoptimized: true,
   },
+  assetPrefix: '',
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
