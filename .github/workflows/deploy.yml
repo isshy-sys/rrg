@@ -31,7 +31,8 @@ jobs:
   # Frontend デプロイジョブ
   deploy-frontend:
     needs: detect-changes
-    if: needs.detect-changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
+    # 初回デプロイのため条件を一時的に削除
+    # if: needs.detect-changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
     runs-on: ubuntu-latest
     
     steps:
@@ -76,7 +77,8 @@ jobs:
   # Backend デプロイジョブ
   deploy-backend:
     needs: detect-changes
-    if: needs.detect-changes.outputs.backend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
+    # 初回デプロイのため条件を一時的に削除
+    # if: needs.detect-changes.outputs.backend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
     runs-on: ubuntu-latest
     
     steps:
