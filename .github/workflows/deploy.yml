@@ -28,10 +28,11 @@ jobs:
             backend:
               - 'backend/**'
 
-  # Frontend デプロイジョブ（一時的に無効化）
+  # Frontend デプロイジョブ
   deploy-frontend:
     needs: detect-changes
-    if: false  # 一時的に無効化
+    # 強制実行（初回デプロイのため）
+    if: always()
     runs-on: ubuntu-latest
     
     steps:
@@ -63,17 +64,10 @@ jobs:
       #     npm run lint
       #   continue-on-error: false
       
-      # 一時的にビルドをスキップ（初回デプロイのため）
-      # - name: Build frontend
-      #   run: |
-      #     cd frontend
-      #     npx next build
-      
-      - name: Create dummy build directory
+      - name: Build frontend
         run: |
           cd frontend
-          mkdir -p dist
-          echo "<h1>Deployment Test</h1>" > dist/index.html
+          npm run build
       
       - name: Deploy to Azure App Service (Frontend)
         uses: azure/webapps-deploy@v2
@@ -97,11 +91,15 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install dependencies
+      - name: Install dependencies and create requirements
         run: |
           cd backend
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          # 依存関係を確認
+          pip list > installed_packages.txt
+          echo "Installed packages:"
+          cat installed_packages.txt
       
       # テストを一時的にスキップ（初回デプロイのため）
       # - name: Run backend tests
