@@ -237,25 +237,120 @@ export async function transcribeAudio(audioBlob: Blob, problemId: string, retryC
   };
 }
 
-// Scoring
+// Scoring - モック実装
 export async function evaluateResponse(payload: { problem_id: string; transcript: string; reading_text: string; lecture_script: string }) {
-  const url = `${API_BASE}/api/scoring/evaluate`;
-  return requestJSON<any>(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  // モック実装 - 開発中のため一時的にモックデータを返す
+  console.log('🤖 Mock scoring for Task 2/3/4:', payload.problem_id);
+  
+  // 3-5秒待機してAPIコールをシミュレート
+  const delay = 3000 + Math.random() * 2000;
+  await new Promise(resolve => setTimeout(resolve, delay));
+  
+  return {
+    overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
+    detailed_scores: {
+      content: Math.floor(Math.random() * 3) + 2,
+      organization: Math.floor(Math.random() * 3) + 2,
+      language_use: Math.floor(Math.random() * 3) + 2,
+      delivery: Math.floor(Math.random() * 3) + 2
+    },
+    feedback: {
+      strengths: [
+        "リーディングとレクチャーの内容を適切に統合している",
+        "明確な構成で回答している",
+        "重要なポイントを正確に伝えている"
+      ],
+      improvements: [
+        "より具体的な詳細を含めることを推奨",
+        "接続詞の使用を増やして流暢性を向上",
+        "時間管理を改善する"
+      ]
+    },
+    transcript: payload.transcript,
+    problem_id: payload.problem_id
+  };
 }
 
 export async function evaluateTask1Response(payload: { problem_id: string; transcript: string; question: string }) {
-  const url = `${API_BASE}/api/scoring/evaluate-task1`;
-  return requestJSON<any>(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  // モック実装 - 開発中のため一時的にモックデータを返す
+  console.log('🤖 Mock scoring for Task 1:', payload.problem_id);
+  
+  // 3-5秒待機してAPIコールをシミュレート
+  const delay = 3000 + Math.random() * 2000;
+  await new Promise(resolve => setTimeout(resolve, delay));
+  
+  return {
+    overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
+    detailed_scores: {
+      content: Math.floor(Math.random() * 3) + 2,
+      organization: Math.floor(Math.random() * 3) + 2,
+      language_use: Math.floor(Math.random() * 3) + 2
+    },
+    feedback: {
+      strengths: [
+        "質問に対して適切に回答している",
+        "具体的な例を挙げて説明している",
+        "論理的な構成で話している"
+      ],
+      improvements: [
+        "より詳細な説明があるとさらに良い",
+        "語彙の多様性を増やすことを推奨",
+        "発音の明瞭さを向上させる"
+      ]
+    },
+    transcript: payload.transcript,
+    problem_id: payload.problem_id
+  };
 }
 
 export async function generateModelAnswer(payload: { problem_id: string; reading_text: string | null; lecture_script: string; question: string }) {
-  const url = `${API_BASE}/api/scoring/model-answer/generate`;
-  return requestJSON<any>(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  // モック実装 - 開発中のため一時的にモックデータを返す
+  console.log('📝 Mock model answer generation:', payload.problem_id);
+  
+  // 2-3秒待機してAPIコールをシミュレート
+  const delay = 2000 + Math.random() * 1000;
+  await new Promise(resolve => setTimeout(resolve, delay));
+  
+  return {
+    model_answer: "This is a sample model answer for demonstration purposes. The actual model answer generation feature is currently under development.",
+    highlighted_phrases: [
+      {
+        text: "sample phrase",
+        category: "transition",
+        useful_for_writing: true
+      },
+      {
+        text: "demonstration purposes",
+        category: "academic",
+        useful_for_writing: true
+      }
+    ]
+  };
 }
 
 export async function generateTask1ModelAnswer(payload: { problem_id: string; question: string }) {
-  const url = `${API_BASE}/api/scoring/model-answer/generate-task1`;
-  return requestJSON<any>(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  // モック実装 - 開発中のため一時的にモックデータを返す
+  console.log('📝 Mock Task1 model answer generation:', payload.problem_id);
+  
+  // 2-3秒待機してAPIコールをシミュレート
+  const delay = 2000 + Math.random() * 1000;
+  await new Promise(resolve => setTimeout(resolve, delay));
+  
+  return {
+    model_answer: "This is a sample Task1 model answer for demonstration purposes. The actual model answer generation feature is currently under development.",
+    highlighted_phrases: [
+      {
+        text: "in my opinion",
+        category: "opinion",
+        explanation: "Used to express personal viewpoint"
+      },
+      {
+        text: "for example",
+        category: "example",
+        explanation: "Used to provide specific examples"
+      }
+    ]
+  };
 }
 
 export async function generateTask2ModelAnswer(payload: { problem_id: string; announcement_text: string; conversation_script: string; question: string }) {
