@@ -71,12 +71,12 @@ function SpeakingPhaseContent() {
       // Wrap the entire process in a race with timeout
       await Promise.race([
         (async () => {
-          // Step 1: Transcribe audio (モック実装)
-          console.log('📝 Starting transcription...');
+          // Step 1: Transcribe audio (完全モック実装 - v2)
+          console.log('📝 Starting mock transcription...');
           setProcessingStage('transcribing');
           const transcriptionStart = Date.now();
           
-          // 一時的なモック実装
+          // 完全モック実装 - バックエンド接続なし
           await new Promise(resolve => setTimeout(resolve, 2000)); // 2秒待機
           const transcript = "This is a sample transcription for testing purposes. The actual transcription feature is currently under development.";
           
