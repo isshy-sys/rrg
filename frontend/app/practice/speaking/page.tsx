@@ -90,55 +90,48 @@ function SpeakingPhaseContent() {
           
           let scoringResult;
           if (selectedTask === 'task1') {
-            // モック実装 - Task1スコアリング
+            // モック実装 - Task1スコアリング (Task1ScoringResponse型)
             await new Promise(resolve => setTimeout(resolve, 3000)); // 3秒待機
             scoringResult = {
               overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
-              detailed_scores: {
-                content: Math.floor(Math.random() * 3) + 2,
-                organization: Math.floor(Math.random() * 3) + 2,
-                language_use: Math.floor(Math.random() * 3) + 2
-              },
-              feedback: {
-                strengths: [
-                  "質問に対して適切に回答している",
-                  "具体的な例を挙げて説明している",
-                  "論理的な構成で話している"
-                ],
-                improvements: [
-                  "より詳細な説明があるとさらに良い",
-                  "語彙の多様性を増やすことを推奨",
-                  "発音の明瞭さを向上させる"
-                ]
-              },
-              transcript: transcript,
-              problem_id: problem.problem_id
+              delivery_feedback: "発音とイントネーションが良好です。",
+              language_use_feedback: "文法と語彙の使用が適切です。",
+              topic_dev_feedback: "トピックの展開が論理的です。",
+              improvement_tips: [
+                "より詳細な説明があるとさらに良い",
+                "語彙の多様性を増やすことを推奨",
+                "発音の明瞭さを向上させる"
+              ],
+              strengths: [
+                "質問に対して適切に回答している",
+                "具体的な例を挙げて説明している",
+                "論理的な構成で話している"
+              ],
+              user_transcript: transcript
             };
           } else {
-            // モック実装 - Task2/3/4スコアリング
+            // モック実装 - Task2/3/4スコアリング (ScoringResponse型)
             await new Promise(resolve => setTimeout(resolve, 3000)); // 3秒待機
             scoringResult = {
               overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
-              detailed_scores: {
-                content: Math.floor(Math.random() * 3) + 2,
-                organization: Math.floor(Math.random() * 3) + 2,
-                language_use: Math.floor(Math.random() * 3) + 2,
-                delivery: Math.floor(Math.random() * 3) + 2
+              delivery: {
+                score: Math.floor(Math.random() * 3) + 2,
+                feedback: "発音とイントネーションが良好です。"
               },
-              feedback: {
-                strengths: [
-                  "リーディングとレクチャーの内容を適切に統合している",
-                  "明確な構成で回答している",
-                  "重要なポイントを正確に伝えている"
-                ],
-                improvements: [
-                  "より具体的な詳細を含めることを推奨",
-                  "接続詞の使用を増やして流暢性を向上",
-                  "時間管理を改善する"
-                ]
+              language_use: {
+                score: Math.floor(Math.random() * 3) + 2,
+                feedback: "文法と語彙の使用が適切です。"
               },
-              transcript: transcript,
-              problem_id: problem.problem_id
+              topic_development: {
+                score: Math.floor(Math.random() * 3) + 2,
+                feedback: "トピックの展開が論理的です。"
+              },
+              improvement_tips: [
+                "より具体的な詳細を含めることを推奨",
+                "接続詞の使用を増やして流暢性を向上",
+                "時間管理を改善する"
+              ],
+              user_transcript: transcript
             };
           }
           
