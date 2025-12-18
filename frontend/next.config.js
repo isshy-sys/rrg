@@ -11,7 +11,9 @@ const nextConfig = {
   assetPrefix: '',
   skipTrailingSlashRedirect: true,
   generateBuildId: () => 'build',
-  typedRoutes: false,
+  experimental: {
+    typedRoutes: false,
+  },
   // 無効化したページを除外
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   webpack: (config) => {

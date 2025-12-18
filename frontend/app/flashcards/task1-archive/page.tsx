@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated, getUserIdentifier } from '@/lib/auth';
-import { getTask1Questions, deleteTask1Question } from '@/lib/api-client';
-import type { Task1Question } from '@/lib/types';
-import Task1QuestionCard from '../../../components/Task1QuestionCard';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { isAuthenticated, getUserIdentifier } from '../../lib/auth';
+import { getTask1Questions, deleteTask1Question } from '../../lib/api-client';
+import type { Task1Question } from '../../lib/types';
+import Task1QuestionCard from '../../components/Task1QuestionCard';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 /**
  * Task1 Archive page for reviewing past Task1 questions.

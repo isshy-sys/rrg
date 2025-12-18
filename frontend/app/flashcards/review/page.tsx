@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { isAuthenticated, getUserIdentifier } from '../../lib/auth';
 import { getPhrases, updatePhraseMastered } from '../../lib/api-client';
 import type { SavedPhrase } from '../../lib/types';
+import FlashCard from '../../components/FlashCard';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 /**
  * Flashcards review page for reviewing saved phrases.
