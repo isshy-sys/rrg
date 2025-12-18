@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:  # 手動実行を許可
 
 jobs:
   # 変更されたファイルを検出するジョブ
@@ -30,7 +31,7 @@ jobs:
   # Frontend デプロイジョブ
   deploy-frontend:
     needs: detect-changes
-    if: needs.detect-changes.outputs.frontend == 'true'
+    if: needs.detect-changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
     runs-on: ubuntu-latest
     
     steps:
@@ -75,7 +76,7 @@ jobs:
   # Backend デプロイジョブ
   deploy-backend:
     needs: detect-changes
-    if: needs.detect-changes.outputs.backend == 'true'
+    if: needs.detect-changes.outputs.backend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
     runs-on: ubuntu-latest
     
     steps:
