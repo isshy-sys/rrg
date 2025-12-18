@@ -45,9 +45,10 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
       
-      - name: Install dependencies
+      - name: Clean and install dependencies
         run: |
           cd frontend
+          rm -rf .next node_modules/.cache
           npm ci
       
       # テストを一時的にスキップ（初回デプロイのため）
@@ -67,6 +68,9 @@ jobs:
         run: |
           cd frontend
           npm run build
+        env:
+          # Turbopackを無効にして通常のビルドを使用
+          TURBOPACK: 0
       
       - name: Deploy to Azure App Service (Frontend)
         uses: azure/webapps-deploy@v2
