@@ -14,11 +14,11 @@
 
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Timer from '@/components/Timer';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import PracticeLayout from '@/components/PracticeLayout';
-import ErrorScreen from '@/components/ErrorScreen';
-import { useProblemData } from '@/hooks/useProblemData';
+import Timer from '../../components/Timer';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import PracticeLayout from '../../components/PracticeLayout';
+import ErrorScreen from '../../components/ErrorScreen';
+import { useProblemData } from '../../hooks/useProblemData';
 
 function PreparationPhaseContent() {
   const router = useRouter();

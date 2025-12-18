@@ -14,11 +14,11 @@
 
 import { useEffect, useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Timer from '@/components/Timer';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { Problem } from '@/lib/types';
-import { generateProblem } from '@/lib/api-client';
-import { getUserIdentifier } from '@/lib/auth';
+import Timer from '../../components/Timer';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { Problem } from '../../lib/types';
+import { generateProblem } from '../../lib/api-client';
+import { getUserIdentifier } from '../../lib/auth';
 
 function ReadingPhaseContent() {
   const router = useRouter();

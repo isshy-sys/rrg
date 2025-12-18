@@ -17,7 +17,7 @@ import {
   AuthenticationError,
   ValidationError,
   RecordingError
-} from '@/lib/api-client';
+} from '../lib/api-client';
 
 interface ErrorScreenProps {
   error: string | Error;

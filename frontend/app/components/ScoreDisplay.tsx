@@ -15,8 +15,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { ScoringResponse, ModelAnswerResponse, Problem } from '@/lib/types';
-import { generateModelAnswer, savePhrase } from '@/lib/api-client';
+import { ScoringResponse, ModelAnswerResponse, Problem } from '../lib/types';
+import { generateModelAnswer, savePhrase } from '../lib/api-client';
 import LoadingSpinner from './LoadingSpinner';
 
 interface ScoreDisplayProps {
@@ -162,13 +162,13 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
       let result;
       
       if (isTask1) {
-        const { generateTask1ModelAnswer } = await import('@/lib/api-client');
+        const { generateTask1ModelAnswer } = await import('../lib/api-client');
         result = await generateTask1ModelAnswer({
           problem_id: problem.problem_id,
           question: problem.question
         });
       } else if (taskType === 'task2') {
-        const { generateTask2ModelAnswer } = await import('@/lib/api-client');
+        const { generateTask2ModelAnswer } = await import('../lib/api-client');
         result = await generateTask2ModelAnswer({
           problem_id: problem.problem_id,
           announcement_text: problem.reading_text || '',
@@ -382,7 +382,7 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
       }
       
       // Import API function dynamically
-      const { generateAIReview } = await import('@/lib/api-client');
+      const { generateAIReview } = await import('../lib/api-client');
 
       console.log('🤖 Generating AI review...');
       
@@ -441,7 +441,7 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
       if (isTask1) {
         try {
           console.log('💾 Saving AI review result:', result);
-          const { saveAIReview } = await import('@/lib/api-client');
+          const { saveAIReview } = await import('../lib/api-client');
           await saveAIReview(problem.problem_id, result);
           console.log('💾 AI review saved successfully');
         } catch (saveError) {
@@ -475,7 +475,7 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
 
     try {
       // Import API function dynamically
-      const { generateSpeechAudio } = await import('@/lib/api-client');
+      const { generateSpeechAudio } = await import('../lib/api-client');
 
       console.log('🔊 Generating speech audio...');
       const audioBlob = await generateSpeechAudio(text);

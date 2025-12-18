@@ -13,10 +13,10 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import ScoreDisplay from '@/components/ScoreDisplay';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import ErrorScreen from '@/components/ErrorScreen';
-import { ScoringResponse } from '@/lib/types';
+import ScoreDisplay from '../../components/ScoreDisplay';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import ErrorScreen from '../../components/ErrorScreen';
+import { ScoringResponse } from '../../lib/types';
 
 function ResultsContent() {
   const searchParams = useSearchParams();
