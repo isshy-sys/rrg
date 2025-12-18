@@ -9,6 +9,8 @@ const nextConfig = {
     unoptimized: true,
   },
   assetPrefix: '',
+  skipTrailingSlashRedirect: true,
+  generateBuildId: () => 'build',
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
