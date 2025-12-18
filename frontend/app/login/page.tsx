@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { simpleLogin, storeSessionToken, storeUserId, storeUserIdentifier } from '@/lib/auth';
+import { simpleLogin, storeSessionToken, storeUserId, storeUserIdentifier } from '../../lib/auth';
 
 export default function LoginPage() {
   const [userId, setUserId] = useState('');

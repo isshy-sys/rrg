@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated, clearSessionToken, getUserIdentifier } from '@/lib/auth';
+import { isAuthenticated, clearSessionToken, getUserIdentifier } from '../../lib/auth';
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
