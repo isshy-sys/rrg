@@ -62,10 +62,15 @@ export default function PracticeSelectPage() {
 
       console.log('🎲 Generating Task 1 problem...');
       
-      // Generate Task 1 problem
-      const problem = await generateProblem(userIdentifier, 'task1');
+      // 一時的なモック実装
+      const problem = {
+        problem_id: `task1-${Date.now()}`,
+        question: "サンプルTask1問題: この機能は現在開発中です。",
+        reading_text: "サンプルリーディングテキスト",
+        lecture_script: "サンプル講義スクリプト"
+      };
       
-      console.log('✅ Task 1 problem generated:', problem.problem_id);
+      console.log('✅ Task 1 problem generated (mock):', problem.problem_id);
       
       // Store problem data in session storage
       sessionStorage.setItem('currentProblem', JSON.stringify(problem));
@@ -98,9 +103,16 @@ export default function PracticeSelectPage() {
       }
 
       console.log('🎲 Generating Task 4 problem...');
-      const problem = await generateProblem(userIdentifier, 'task4');
+      
+      // 一時的なモック実装
+      const problem = {
+        problem_id: `task4-${Date.now()}`,
+        question: "サンプルTask4問題: この機能は現在開発中です。",
+        reading_text: "サンプルリーディングテキスト",
+        lecture_script: "サンプル講義スクリプト"
+      };
 
-      console.log('✅ Task 4 problem generated:', problem.problem_id);
+      console.log('✅ Task 4 problem generated (mock):', problem.problem_id);
       // Store problem data in session storage
       sessionStorage.setItem('currentProblem', JSON.stringify(problem));
 
