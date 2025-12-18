@@ -66,8 +66,7 @@ function SpeakingPhaseContent() {
     });
 
     try {
-      // Import API functions dynamically to avoid circular dependencies
-      const { transcribeAudio, evaluateResponse, evaluateTask1Response } = await import('../../lib/api-client');
+      // API functions are mocked for development - no actual imports needed
       
       // Wrap the entire process in a race with timeout
       await Promise.race([
