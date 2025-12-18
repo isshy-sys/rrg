@@ -72,7 +72,7 @@ jobs:
           npm run build
       
       - name: Deploy to Azure App Service (Frontend)
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'tech0-gen-11-step3-2-node-26'  # ここを実際のApp Service名に変更
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONTEND }}
@@ -117,7 +117,7 @@ jobs:
       #   continue-on-error: false
       
       - name: Deploy to Azure App Service (Backend)
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'tech0-gen-11-step3-2-py-26'  # ここを実際のApp Service名に変更
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
