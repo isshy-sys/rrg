@@ -18,8 +18,8 @@ import Timer from '../../components/Timer';
 import AudioRecorder from '../../components/AudioRecorder';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import PracticeLayout from '../../components/PracticeLayout';
-import ErrorScreen from '@/components/ErrorScreen';
-import { useProblemData } from '@/hooks/useProblemData';
+import ErrorScreen from '../../components/ErrorScreen';
+import { useProblemData } from '../../hooks/useProblemData';
 
 function SpeakingPhaseContent() {
   const router = useRouter();
@@ -67,7 +67,7 @@ function SpeakingPhaseContent() {
 
     try {
       // Import API functions dynamically to avoid circular dependencies
-      const { transcribeAudio, evaluateResponse, evaluateTask1Response } = await import('@/lib/api-client');
+      const { transcribeAudio, evaluateResponse, evaluateTask1Response } = await import('../../lib/api-client');
       
       // Wrap the entire process in a race with timeout
       await Promise.race([

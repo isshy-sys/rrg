@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import BackButton from '@/components/BackButton';
+import { isAuthenticated } from '../../lib/auth';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import BackButton from '../../components/BackButton';
 
 interface MockExamState {
   currentTask: number; // 1-4
@@ -44,8 +44,8 @@ export default function MockExamPage() {
     setExamState(prev => ({ ...prev, isGenerating: true }));
     
     try {
-      const { generateProblem } = await import('@/lib/api-client');
-      const { getUserIdentifier } = await import('@/lib/auth');
+      const { generateProblem } = await import('../../lib/api-client');
+      const { getUserIdentifier } = await import('../../lib/auth');
 
       const userIdentifier = getUserIdentifier();
       if (!userIdentifier) {

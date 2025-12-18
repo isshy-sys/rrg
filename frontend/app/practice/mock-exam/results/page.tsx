@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import BackButton from '@/components/BackButton';
+import LoadingSpinner from '../../../components/LoadingSpinner';
+import BackButton from '../../../components/BackButton';
 
 interface TaskResult {
   taskNumber: number;
@@ -60,7 +60,7 @@ export default function MockExamResultsPage() {
           try {
             if (taskNumber === 1) {
               // Score Task 1
-              const { evaluateTask1Response } = await import('@/lib/api-client');
+              const { evaluateTask1Response } = await import('../../../lib/api-client');
               const result = await evaluateTask1Response({
                 problem_id: problem.problem_id,
                 transcript: transcript,
@@ -70,7 +70,7 @@ export default function MockExamResultsPage() {
               feedback = result;
             } else {
               // Score Task 2, 3, 4
-              const { evaluateResponse } = await import('@/lib/api-client');
+              const { evaluateResponse } = await import('../../../lib/api-client');
               const result = await evaluateResponse({
                 problem_id: problem.problem_id,
                 transcript: transcript,

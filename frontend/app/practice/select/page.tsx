@@ -51,8 +51,8 @@ export default function PracticeSelectPage() {
 
     try {
       // Import API function dynamically
-      const { generateProblem } = await import('@/lib/api-client');
-      const { getUserIdentifier } = await import('@/lib/auth');
+      const { generateProblem } = await import('../../lib/api-client');
+      const { getUserIdentifier } = await import('../../lib/auth');
 
       // Get user identifier
       const userIdentifier = getUserIdentifier();
@@ -89,8 +89,8 @@ export default function PracticeSelectPage() {
     setGeneratingTask('task4');
 
     try {
-      const { generateProblem } = await import('@/lib/api-client');
-      const { getUserIdentifier } = await import('@/lib/auth');
+      const { generateProblem } = await import('../../lib/api-client');
+      const { getUserIdentifier } = await import('../../lib/auth');
 
       const userIdentifier = getUserIdentifier();
       if (!userIdentifier) {
