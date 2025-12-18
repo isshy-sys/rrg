@@ -37,6 +37,7 @@
   ],
   "exclude": [
     "node_modules",
-    "app/_*-disabled/**/*"
+    "app/_*-disabled/**/*",
+    "_*-disabled/**/*"
   ]
 }
