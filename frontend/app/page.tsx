@@ -32,7 +32,7 @@ export default function Home() {
     }}>
       <h1>TOEFL Speaking Master</h1>
       <p>Frontend deployment successful! (Updated)</p>
-      <p>Backend API: {process.env.NEXT_PUBLIC_API_BASE_URL || 'Not configured'}</p>
+      <p>Backend API: {process.env.NEXT_PUBLIC_API_BASE_URL || 'https://tech0-gen-11-step3-2-py-26.azurewebsites.net'}</p>
       
       <div style={{ marginTop: '20px' }}>
         <button 
