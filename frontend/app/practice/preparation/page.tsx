@@ -85,7 +85,7 @@ function PreparationPhaseContent() {
           
           <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
             <p className="text-gray-800 leading-relaxed">
-              {problem.question}
+              {problem?.question || 'Loading...'}
             </p>
           </div>
         </div>
