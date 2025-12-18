@@ -28,11 +28,10 @@ jobs:
             backend:
               - 'backend/**'
 
-  # Frontend デプロイジョブ
+  # Frontend デプロイジョブ（一時的に無効化）
   deploy-frontend:
     needs: detect-changes
-    # 初回デプロイのため条件を一時的に削除
-    # if: needs.detect-changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch' || github.run_number == 1
+    if: false  # 一時的に無効化
     runs-on: ubuntu-latest
     
     steps:
@@ -64,13 +63,17 @@ jobs:
       #     npm run lint
       #   continue-on-error: false
       
-      - name: Build frontend
+      # 一時的にビルドをスキップ（初回デプロイのため）
+      # - name: Build frontend
+      #   run: |
+      #     cd frontend
+      #     npx next build
+      
+      - name: Create dummy build directory
         run: |
           cd frontend
-          npm run build
-        env:
-          # Turbopackを無効にして通常のビルドを使用
-          TURBOPACK: 0
+          mkdir -p dist
+          echo "<h1>Deployment Test</h1>" > dist/index.html
       
       - name: Deploy to Azure App Service (Frontend)
         uses: azure/webapps-deploy@v2
