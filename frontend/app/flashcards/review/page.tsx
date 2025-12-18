@@ -2,11 +2,9 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated, getUserIdentifier } from '@/lib/auth';
-import { getPhrases, updatePhraseMastered } from '@/lib/api-client';
-import type { SavedPhrase } from '@/lib/types';
-import FlashCard from '@/components/FlashCard';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { isAuthenticated, getUserIdentifier } from '../../lib/auth';
+import { getPhrases, updatePhraseMastered } from '../../lib/api-client';
+import type { SavedPhrase } from '../../lib/types';
 
 /**
  * Flashcards review page for reviewing saved phrases.

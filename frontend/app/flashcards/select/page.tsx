@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import BackButton from '@/components/BackButton';
+import { isAuthenticated } from '../../lib/auth';
 
 export default function FlashcardSelectPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +32,11 @@ export default function FlashcardSelectPage() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
   }
 
   const options = [
@@ -68,8 +70,13 @@ export default function FlashcardSelectPage() {
       {/* Header */}
       <header className="surface-elevated backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center gap-4">
-          <BackButton />
-          <h1 className="text-xl sm:text-2xl font-bold text-luxury">
+          <button
+            onClick={() => router.push('/home')}
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            ← 戻る
+          </button>
+          <h1 className="text-xl sm:text-2xl font-bold">
             学習コンテンツを選択
           </h1>
         </div>

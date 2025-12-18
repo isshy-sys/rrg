@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { isAuthenticated } from '../lib/auth';
 
 /**
  * Flashcards main page - redirects to selection page
@@ -27,7 +26,11 @@ export default function FlashcardsPage() {
   }, [router]);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
   }
 
   return null;

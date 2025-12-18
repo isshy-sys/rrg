@@ -50,6 +50,16 @@ export default function HomePage() {
         <div className="text-center">
           <h2 className="text-xl mb-4">ようこそ！ユーザー: {getUserIdentifier()}</h2>
           <p className="mb-8">ログイン機能が正常に動作しています。</p>
+          
+          <div className="mb-8">
+            <button
+              onClick={() => router.push('/flashcards')}
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mr-4"
+            >
+              フラッシュカード
+            </button>
+          </div>
+          
           <p className="text-gray-600">他の機能は段階的に復旧予定です。</p>
         </div>
       </div>
