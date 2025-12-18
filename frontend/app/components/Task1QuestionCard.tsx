@@ -101,7 +101,7 @@ export default function Task1QuestionCard({
     
     try {
       // Import API functions dynamically with type assertion
-      const apiClient = await import('@/lib/api-client') as any;
+      const apiClient = await import('../lib/api-client') as any;
       const generateAIReview = apiClient.generateAIReview;
       const saveAIReview = apiClient.saveAIReview;
       
@@ -160,7 +160,7 @@ export default function Task1QuestionCard({
 
     try {
       // Import API function dynamically with type assertion
-      const apiClient = await import('@/lib/api-client') as any;
+      const apiClient = await import('../lib/api-client') as any;
       const generateSpeechAudio = apiClient.generateSpeechAudio;
 
       console.log('🔊 Generating speech audio...');
