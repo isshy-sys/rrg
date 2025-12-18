@@ -9,6 +9,11 @@ const nextConfig = {
     };
     return config;
   },
+  // 無効化したページを除外
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  experimental: {
+    typedRoutes: false,
+  },
 };
 
 module.exports = nextConfig;
