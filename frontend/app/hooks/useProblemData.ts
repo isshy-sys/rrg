@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 interface Problem {
   question: string;
   problem_id: string;
+  reading_text?: string;
+  lecture_script?: string;
   // 他の必要なプロパティを追加
 }
 
@@ -17,7 +19,9 @@ export function useProblemData() {
     setTimeout(() => {
       setProblem({
         question: "サンプル問題: この機能は現在開発中です。",
-        problem_id: "sample-001"
+        problem_id: "sample-001",
+        reading_text: "サンプルリーディングテキスト",
+        lecture_script: "サンプル講義スクリプト"
       });
       setIsLoading(false);
     }, 1000);
