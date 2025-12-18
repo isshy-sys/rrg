@@ -43,13 +43,13 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: frontend/package.json
       
       - name: Clean and install dependencies
         run: |
           cd frontend
-          rm -rf .next node_modules/.cache
-          npm ci --legacy-peer-deps
+          rm -rf .next node_modules/.cache node_modules
+          npm install --legacy-peer-deps
       
       # テストを一時的にスキップ（初回デプロイのため）
       # - name: Run frontend tests
