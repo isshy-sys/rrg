@@ -49,7 +49,7 @@ jobs:
         run: |
           cd frontend
           rm -rf .next node_modules/.cache
-          npm ci
+          npm ci --legacy-peer-deps
       
       # テストを一時的にスキップ（初回デプロイのため）
       # - name: Run frontend tests
