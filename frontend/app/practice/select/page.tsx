@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import TaskSelectionCard from '@/components/TaskSelectionCard';
-import BackButton from '@/components/BackButton';
+import { isAuthenticated } from '../../lib/auth';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import TaskSelectionCard from '../../components/TaskSelectionCard';
+import BackButton from '../../components/BackButton';
 
 export default function PracticeSelectPage() {
   const [isLoading, setIsLoading] = useState(true);

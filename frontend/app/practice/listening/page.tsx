@@ -14,8 +14,8 @@
 
 import { useEffect, useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { Problem } from '@/lib/types';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { Problem } from '../../lib/types';
 
 function ListeningPhaseContent() {
   const router = useRouter();

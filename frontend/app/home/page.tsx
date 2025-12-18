@@ -58,6 +58,12 @@ export default function HomePage() {
             >
               フラッシュカード
             </button>
+            <button
+              onClick={() => router.push('/practice/select')}
+              className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 mr-4"
+            >
+              練習
+            </button>
           </div>
           
           <p className="text-gray-600">他の機能は段階的に復旧予定です。</p>

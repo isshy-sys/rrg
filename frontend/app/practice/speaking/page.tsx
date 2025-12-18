@@ -14,10 +14,10 @@
 
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Timer from '@/components/Timer';
-import AudioRecorder from '@/components/AudioRecorder';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import PracticeLayout from '@/components/PracticeLayout';
+import Timer from '../../components/Timer';
+import AudioRecorder from '../../components/AudioRecorder';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import PracticeLayout from '../../components/PracticeLayout';
 import ErrorScreen from '@/components/ErrorScreen';
 import { useProblemData } from '@/hooks/useProblemData';
 
