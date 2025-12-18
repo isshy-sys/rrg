@@ -91,18 +91,56 @@ function SpeakingPhaseContent() {
           
           let scoringResult;
           if (selectedTask === 'task1') {
-            scoringResult = await evaluateTask1Response({
-              problem_id: problem.problem_id,
+            // モック実装 - Task1スコアリング
+            await new Promise(resolve => setTimeout(resolve, 3000)); // 3秒待機
+            scoringResult = {
+              overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
+              detailed_scores: {
+                content: Math.floor(Math.random() * 3) + 2,
+                organization: Math.floor(Math.random() * 3) + 2,
+                language_use: Math.floor(Math.random() * 3) + 2
+              },
+              feedback: {
+                strengths: [
+                  "質問に対して適切に回答している",
+                  "具体的な例を挙げて説明している",
+                  "論理的な構成で話している"
+                ],
+                improvements: [
+                  "より詳細な説明があるとさらに良い",
+                  "語彙の多様性を増やすことを推奨",
+                  "発音の明瞭さを向上させる"
+                ]
+              },
               transcript: transcript,
-              question: problem.question,
-            });
+              problem_id: problem.problem_id
+            };
           } else {
-            scoringResult = await evaluateResponse({
-              problem_id: problem.problem_id,
+            // モック実装 - Task2/3/4スコアリング
+            await new Promise(resolve => setTimeout(resolve, 3000)); // 3秒待機
+            scoringResult = {
+              overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
+              detailed_scores: {
+                content: Math.floor(Math.random() * 3) + 2,
+                organization: Math.floor(Math.random() * 3) + 2,
+                language_use: Math.floor(Math.random() * 3) + 2,
+                delivery: Math.floor(Math.random() * 3) + 2
+              },
+              feedback: {
+                strengths: [
+                  "リーディングとレクチャーの内容を適切に統合している",
+                  "明確な構成で回答している",
+                  "重要なポイントを正確に伝えている"
+                ],
+                improvements: [
+                  "より具体的な詳細を含めることを推奨",
+                  "接続詞の使用を増やして流暢性を向上",
+                  "時間管理を改善する"
+                ]
+              },
               transcript: transcript,
-              reading_text: problem.reading_text || '',
-              lecture_script: problem.lecture_script || '',
-            });
+              problem_id: problem.problem_id
+            };
           }
           
           console.log('✅ Scoring complete in', (Date.now() - scoringStart) / 1000, 'seconds');

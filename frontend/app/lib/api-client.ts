@@ -160,9 +160,51 @@ export async function fetchSessionDetail(sessionId: string, userIdentifier: stri
 
 // Problems
 export async function generateProblem(userIdentifier: string, task_type = 'task3', topic_category?: string) {
-  const url = `${API_BASE}/api/problems/generate`;
-  const body = { task_type, topic_category, user_id: userIdentifier };
-  return requestJSON<any>(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  // モック実装 - 開発中のため一時的にモックデータを返す
+  console.log('🎲 Generating mock problem for:', task_type);
+  
+  // 2秒待機してAPIコールをシミュレート
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  const mockProblems = {
+    task1: {
+      problem_id: `task1-${Date.now()}`,
+      task_type: 'task1',
+      question: "Some people prefer to work independently, while others prefer to work as part of a team. Which do you prefer and why? Use specific reasons and examples to support your answer.",
+      reading_text: undefined,
+      lecture_script: undefined,
+      topic_category: topic_category || "Work and Career"
+    },
+    task2: {
+      problem_id: `task2-${Date.now()}`,
+      task_type: 'task2',
+      question: "The woman expresses her opinion about the university's new policy. State her opinion and explain the reasons she gives for holding that opinion.",
+      reading_text: "University Announcement\n\nEffective next semester, the university will implement a new policy requiring all students to complete at least 20 hours of community service before graduation. This initiative aims to strengthen the connection between our academic community and the broader society while providing students with valuable real-world experience. Students can choose from a variety of approved community service opportunities, including tutoring local high school students, volunteering at community centers, or participating in environmental cleanup projects. The community service requirement will be tracked through the student portal, and students must submit documentation of their service hours along with a brief reflection essay.",
+      lecture_script: "Now listen to two students discussing the announcement.\n\nMan: Did you see this new community service requirement? Twenty hours seems like a lot on top of our regular coursework.\n\nWoman: Actually, I think it's a great idea. I mean, sure, it's additional work, but think about the benefits. First, it gives us a chance to apply what we're learning in our classes to real situations. Like, if you're studying education, you could tutor kids and see how teaching actually works in practice.\n\nMan: I guess that makes sense, but I'm worried about finding the time.\n\nWoman: Well, that's my second point - it's actually great for time management skills. You have to learn to balance your academic work with other responsibilities, which is exactly what we'll need to do in our careers. Plus, the university is offering flexible options. You can spread those 20 hours across multiple semesters, so it's not like you have to do it all at once.\n\nMan: Hmm, I hadn't thought about the career preparation aspect.\n\nWoman: Exactly! And one more thing - this kind of experience looks really good on resumes. Employers love to see that you've been involved in your community and can handle multiple commitments.",
+      topic_category: topic_category || "Campus Life"
+    },
+    task3: {
+      problem_id: `task3-${Date.now()}`,
+      task_type: 'task3',
+      question: "Using the example from the lecture, explain how the concept of 'social proof' influences consumer behavior.",
+      reading_text: "Social Proof in Marketing\n\nSocial proof is a psychological phenomenon where people look to the behavior and actions of others to guide their own decisions, especially in situations of uncertainty. In marketing, this concept is leveraged to influence consumer purchasing decisions by demonstrating that others have already chosen and approved of a product or service. There are several types of social proof commonly used in marketing: expert endorsements, celebrity testimonials, user reviews and ratings, and popularity indicators such as 'bestseller' labels or showing how many people have purchased an item. The effectiveness of social proof stems from our natural tendency to follow the crowd and assume that if many others are doing something, it must be the right choice.",
+      lecture_script: "Now, let me give you a concrete example of how social proof works in practice. Let's say you're shopping online for a new laptop. You've narrowed it down to two similar models with comparable features and prices. However, when you look at the product pages, you notice some key differences.\n\nThe first laptop has just a few reviews - maybe five or six - and while they're generally positive, there aren't many details. The average rating is about 4 stars.\n\nThe second laptop, on the other hand, has over 500 customer reviews with an average rating of 4.2 stars. You can see detailed comments from verified purchasers talking about their experiences - some mentioning how great the battery life is, others praising the fast processing speed, and several noting excellent customer service from the company.\n\nNow, which laptop are you more likely to choose? Most people would go with the second one, even though it's only slightly higher rated. Why? Because of social proof. Those 500 reviews represent 500 people who made the same decision you're trying to make, and they're sharing their experiences. This gives you confidence that you're making a good choice.\n\nThe interesting thing is, this happens even when we're not consciously thinking about it. Our brains automatically process this information and use it as a shortcut for decision-making. It's much easier to trust the judgment of hundreds of other customers than to research every technical specification ourselves.",
+      topic_category: topic_category || "Psychology and Marketing"
+    },
+    task4: {
+      problem_id: `task4-${Date.now()}`,
+      task_type: 'task4',
+      question: "Using points and examples from the lecture, explain how animals use different strategies to survive in extreme cold environments.",
+      reading_text: undefined,
+      lecture_script: "Today I want to talk about how animals have adapted to survive in extremely cold environments. There are basically two main strategies that animals use: behavioral adaptations and physiological adaptations.\n\nLet's start with behavioral adaptations. These are changes in how animals act to deal with the cold. One of the most common examples is migration. Many birds, like Arctic terns, fly thousands of miles to warmer climates when winter approaches. They're essentially avoiding the problem altogether by moving somewhere else.\n\nAnother behavioral strategy is hibernation. Bears are a great example of this. When food becomes scarce and temperatures drop, bears enter a state of deep sleep where their heart rate and breathing slow down dramatically. This allows them to conserve energy and survive the winter without needing to find food.\n\nNow, physiological adaptations are actual physical changes in the animal's body. One fascinating example is antifreeze proteins. Some fish in the Arctic, like the Antarctic cod, produce special proteins in their blood that prevent ice crystals from forming. It's like having natural antifreeze running through their veins.\n\nAnother physiological adaptation is counter-current heat exchange. Penguins use this system in their flippers and legs. Warm blood flowing from the heart heats up the cold blood returning from the extremities. This prevents heat loss and keeps their core body temperature stable even when they're standing on ice.\n\nFinally, there's insulation. Arctic foxes, for instance, grow incredibly thick winter coats with multiple layers of fur that trap warm air close to their bodies. Some animals even change color - the Arctic fox's fur turns white in winter, which not only provides camouflage but also better insulation properties.",
+      topic_category: topic_category || "Biology and Animal Behavior"
+    }
+  };
+  
+  const mockProblem = mockProblems[task_type as keyof typeof mockProblems] || mockProblems.task3;
+  
+  console.log('✅ Mock problem generated:', mockProblem.problem_id);
+  return mockProblem;
 }
 
 // Speech (upload audio blob)

@@ -48,35 +48,38 @@ jobs:
       - name: Clean and install dependencies
         run: |
           cd frontend
-          rm -rf .next node_modules/.cache node_modules
-          npm install --legacy-peer-deps
-      
-      # テストを一時的にスキップ（初回デプロイのため）
-      # - name: Run frontend tests
-      #   run: |
-      #     cd frontend
-      #     npm run test:ci
-      #   continue-on-error: false
-      
-      # - name: Run frontend linting
-      #   run: |
-      #     cd frontend
-      #     npm run lint
-      #   continue-on-error: false
+          rm -rf .next out node_modules/.cache
+          npm ci --legacy-peer-deps
       
       - name: Build frontend
         env:
           NEXT_PUBLIC_API_BASE_URL: https://tech0-gen-11-step3-2-py-26.azurewebsites.net
+          NODE_ENV: production
         run: |
           cd frontend
           npm run build
+          
+      - name: Verify build output
+        run: |
+          cd frontend
+          echo "Checking build output directory..."
+          ls -la out/ || echo "out directory not found"
+          if [ -d "out" ]; then
+            echo "Build output contents:"
+            find out -type f -name "*.js" -o -name "*.css" -o -name "*.html" | head -20
+          else
+            echo "ERROR: Build output directory 'out' not found!"
+            exit 1
+          fi
       
       - name: Deploy to Azure App Service (Frontend)
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'tech0-gen-11-step3-2-node-26'  # ここを実際のApp Service名に変更
+          app-name: 'tech0-gen-11-step3-2-node-26'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONTEND }}
           package: './frontend/out'
+          clean: true
+          restart: true
 
   # Backend デプロイジョブ（一時的に無効化 - Backendは動作中）
   deploy-backend:
