@@ -17,7 +17,7 @@ export default function Home() {
       setApiResponse(JSON.stringify(data, null, 2));
     } catch (error) {
       setApiStatus('❌ 接続失敗');
-      setApiResponse(error.message);
+      setApiResponse(error instanceof Error ? error.message : String(error));
     }
   };
 
