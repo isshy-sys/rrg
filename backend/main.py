@@ -34,11 +34,11 @@ print(f"  AZURE_OPENAI_API_KEY: {'✅ Set' if os.getenv('AZURE_OPENAI_API_KEY') 
 print(f"  AZURE_OPENAI_ENDPOINT: {os.getenv('AZURE_OPENAI_ENDPOINT') or '❌ Not set'}")
 print(f"  AZURE_OPENAI_WHISPER_DEPLOYMENT: {os.getenv('AZURE_OPENAI_WHISPER_DEPLOYMENT') or '❌ Not set'}")
 
-# Verify critical environment variables
+# Verify critical environment variables (warn but don't fail)
 if not os.getenv("AZURE_OPENAI_API_KEY"):
-    raise ValueError("AZURE_OPENAI_API_KEY environment variable is required")
+    print("⚠️  WARNING: AZURE_OPENAI_API_KEY environment variable is not set")
 if not os.getenv("AZURE_OPENAI_ENDPOINT"):
-    raise ValueError("AZURE_OPENAI_ENDPOINT environment variable is required")
+    print("⚠️  WARNING: AZURE_OPENAI_ENDPOINT environment variable is not set")
 
 app = FastAPI(
     title="TOEFL Speaking Master API",
