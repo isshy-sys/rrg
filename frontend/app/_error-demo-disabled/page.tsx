@@ -7,17 +7,18 @@
 'use client';
 
 import { useState } from 'react';
-import ErrorScreen from '@/components/ErrorScreen';
-import ErrorMessage from '@/components/ErrorMessage';
-import { 
-  APIError, 
-  NetworkError, 
-  RateLimitError, 
-  ServerError,
-  AuthenticationError,
-  ValidationError,
-  RecordingError
-} from '@/lib/api-client';
+// Temporarily disabled for deployment
+// import ErrorScreen from '@/components/ErrorScreen';
+// import ErrorMessage from '@/components/ErrorMessage';
+// import { 
+//   APIError, 
+//   NetworkError, 
+//   RateLimitError, 
+//   ServerError,
+//   AuthenticationError,
+//   ValidationError,
+//   RecordingError
+// } from '@/lib/api-client';
 
 export default function ErrorDemoPage() {
   const [selectedError, setSelectedError] = useState<Error | null>(null);
