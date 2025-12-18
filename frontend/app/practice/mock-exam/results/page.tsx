@@ -58,31 +58,65 @@ export default function MockExamResultsPage() {
           let feedback = null;
 
           try {
+            // モック実装 - 完全にローカル処理
+            console.log(`🤖 Mock scoring for Task ${taskNumber}:`, problem.problem_id);
+            
+            // 2-3秒待機してスコアリングをシミュレート
+            await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
+            
             if (taskNumber === 1) {
-              // Score Task 1
-              const { evaluateTask1Response } = await import('../../../lib/api-client');
-              const result = await evaluateTask1Response({
-                problem_id: problem.problem_id,
+              // Mock Task 1 scoring
+              const result = {
+                overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
+                detailed_scores: {
+                  content: Math.floor(Math.random() * 3) + 2,
+                  organization: Math.floor(Math.random() * 3) + 2,
+                  language_use: Math.floor(Math.random() * 3) + 2
+                },
+                feedback: {
+                  strengths: [
+                    "質問に対して適切に回答している",
+                    "具体的な例を挙げて説明している"
+                  ],
+                  improvements: [
+                    "より詳細な説明があるとさらに良い",
+                    "語彙の多様性を増やすことを推奨"
+                  ]
+                },
                 transcript: transcript,
-                question: problem.question
-              });
+                problem_id: problem.problem_id
+              };
               score = result.overall_score;
               feedback = result;
             } else {
-              // Score Task 2, 3, 4
-              const { evaluateResponse } = await import('../../../lib/api-client');
-              const result = await evaluateResponse({
-                problem_id: problem.problem_id,
+              // Mock Task 2, 3, 4 scoring
+              const result = {
+                overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
+                detailed_scores: {
+                  content: Math.floor(Math.random() * 3) + 2,
+                  organization: Math.floor(Math.random() * 3) + 2,
+                  language_use: Math.floor(Math.random() * 3) + 2,
+                  delivery: Math.floor(Math.random() * 3) + 2
+                },
+                feedback: {
+                  strengths: [
+                    "リーディングとレクチャーの内容を適切に統合している",
+                    "明確な構成で回答している"
+                  ],
+                  improvements: [
+                    "より具体的な詳細を含めることを推奨",
+                    "接続詞の使用を増やして流暢性を向上"
+                  ]
+                },
                 transcript: transcript,
-                reading_text: problem.reading_text,
-                lecture_script: problem.lecture_script
-              });
+                problem_id: problem.problem_id
+              };
               score = result.overall_score;
               feedback = result;
             }
           } catch (error) {
             console.error(`❌ Failed to score Task ${taskNumber}:`, error);
-            score = 0; // Default to 0 if scoring fails
+            score = 2; // Default to 2 if scoring fails (mock)
           }
 
           taskResults.push({
