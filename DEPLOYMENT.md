@@ -213,10 +213,13 @@ Azureポータルで`your-app-frontend`を開き、設定を行います：
 3. 以下の環境変数を追加：
 
 ```
-VITE_API_BASE_URL=https://your-app-backend.azurewebsites.net
+NEXT_PUBLIC_API_BASE_URL=https://tech0-gen-11-step3-2-py-26.azurewebsites.net
 ```
 
+**重要**: Next.jsでは`NEXT_PUBLIC_`プレフィックスが必要です。`VITE_`ではありません。
+
 4. 「保存」をクリック
+5. App Serviceを再起動（「概要」→「再起動」）
 
 ### 6.2 Frontend用スタートアップコマンドの設定
 

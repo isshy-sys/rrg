@@ -31,7 +31,7 @@ export default function Home() {
       padding: '20px'
     }}>
       <h1>TOEFL Speaking Master</h1>
-      <p>Frontend deployment successful!</p>
+      <p>Frontend deployment successful! (Updated)</p>
       <p>Backend API: {process.env.NEXT_PUBLIC_API_BASE_URL || 'Not configured'}</p>
       
       <div style={{ marginTop: '20px' }}>
