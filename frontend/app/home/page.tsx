@@ -73,7 +73,7 @@ export default function HomePage() {
         </div>
 
         {/* Action Cards */}
-        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto mb-12 sm:mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16">
           <button 
             onClick={handleStartPractice}
             className="luxury-card rounded-2xl p-8 sm:p-10 text-left group relative overflow-hidden"
@@ -114,6 +114,37 @@ export default function HomePage() {
               <p className="text-sm sm:text-base font-light tracking-wide" style={{ color: 'var(--foreground-muted)' }}>
                 過去の問題を振りかえります
               </p>
+            </div>
+          </button>
+
+          <button 
+            onClick={() => {
+              // TODO: Task1特訓機能の実装
+              console.log('Task1特訓 - 工事中');
+            }}
+            className="luxury-card rounded-2xl p-8 sm:p-10 text-left group relative overflow-hidden opacity-75 hover:opacity-90 transition-opacity"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-2xl"></div>
+            <div className="relative">
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{
+                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0.1) 100%)',
+                border: '1px solid rgba(249, 115, 22, 0.3)'
+              }}>
+                <svg className="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
+                （工事中）Task1特訓
+              </h3>
+              <p className="text-sm sm:text-base font-light tracking-wide" style={{ color: 'var(--foreground-muted)' }}>
+                Task1に特化した集中練習
+              </p>
+              <div className="mt-3">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  🚧 準備中
+                </span>
+              </div>
             </div>
           </button>
         </div>
