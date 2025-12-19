@@ -922,13 +922,15 @@ QUESTION:
 
 Generate:
 1. A complete, well-structured model answer (45 seconds speaking time, ~130-150 words)
-2. Include personal details and specific examples
-3. Use clear organization with introduction, main points, and conclusion
-4. Identify key phrases that demonstrate good structure and transitions
+2. A Japanese translation of the model answer for learning purposes
+3. Include personal details and specific examples
+4. Use clear organization with introduction, main points, and conclusion
+5. Identify key phrases that demonstrate good structure and transitions
 
 Return ONLY valid JSON with this structure:
 {{
-  "model_answer": "<complete answer text>",
+  "model_answer": "<complete answer text in English>",
+  "japanese_translation": "<Japanese translation of the model answer>",
   "highlighted_phrases": [
     {{
       "text": "<phrase>",
@@ -1003,13 +1005,15 @@ QUESTION:
 
 Generate:
 1. A complete, well-structured model answer (60 seconds speaking time, ~150-180 words)
-2. Accurately summarize the students' opinions and reasons
-3. Use clear organization and appropriate transitions
-4. Identify key phrases that demonstrate good structure (transitions, summaries, conclusions)
+2. A Japanese translation of the model answer for learning purposes
+3. Accurately summarize the students' opinions and reasons
+4. Use clear organization and appropriate transitions
+5. Identify key phrases that demonstrate good structure (transitions, summaries, conclusions)
 
 Return ONLY valid JSON with this structure:
 {{
-  "model_answer": "<complete answer text>",
+  "model_answer": "<complete answer text in English>",
+  "japanese_translation": "<Japanese translation of the model answer>",
   "highlighted_phrases": [
     {{
       "text": "<phrase>",
@@ -1090,12 +1094,14 @@ QUESTION:
 
 Generate:
 1. A complete, well-structured model answer (60 seconds speaking time, ~150-180 words)
-2. Identify key phrases that demonstrate good structure (transitions, examples, conclusions)
-3. Mark phrases that are also useful for TOEFL Writing
+2. A Japanese translation of the model answer for learning purposes
+3. Identify key phrases that demonstrate good structure (transitions, examples, conclusions)
+4. Mark phrases that are also useful for TOEFL Writing
 
 Return ONLY valid JSON with this structure:
 {{
-  "model_answer": "<complete answer text>",
+  "model_answer": "<complete answer text in English>",
+  "japanese_translation": "<Japanese translation of the model answer>",
   "highlighted_phrases": [
     {{
       "text": "<phrase>",
@@ -1216,8 +1222,9 @@ Return ONLY valid JSON with this structure:
 3. この学習者の回答内容を踏まえた具体的な改善案を日本語で提示してください
 4. この問題の内容を考慮したスコアアップのコツを日本語で提供してください
 5. 学習者の回答を基にした改善版の英語回答を作成してください
+6. 改善版英語回答の日本語訳を作成してください
 
-**重要**: strengths、improvements、specific_suggestions、score_improvement_tipsは必ず日本語で記述してください。improved_responseのみ英語で記述してください。
+**重要**: strengths、improvements、specific_suggestions、score_improvement_tipsは必ず日本語で記述してください。improved_responseは英語で、improved_response_japaneseは日本語で記述してください。
 
 以下のJSON形式で回答してください：
 
@@ -1226,7 +1233,8 @@ Return ONLY valid JSON with this structure:
   "improvements": ["改善点1（日本語）", "改善点2（日本語）", "改善点3（日本語）"],
   "specific_suggestions": "この学習者の回答を踏まえた具体的な改善案を日本語でここに詳しく記述してください。学習者が実際に言った内容を引用しながら、どのように改善できるかを具体的に日本語で説明してください。",
   "score_improvement_tips": "この問題の内容と学習者の回答レベルを考慮した、実践的なスコアアップのコツを日本語でここに記述してください。次回同様の問題に取り組む際の具体的なアドバイスを日本語で含めてください。",
-  "improved_response": "学習者の回答を基に、より高いスコアが期待できる改善版の英語回答をここに英語で記述してください。学習者の良い部分は残しつつ、文法、語彙、構成、内容を改善した完全な英語回答を提供してください。45-60秒で話せる長さ（約130-180語）の英語にしてください。"
+  "improved_response": "学習者の回答を基に、より高いスコアが期待できる改善版の英語回答をここに英語で記述してください。学習者の良い部分は残しつつ、文法、語彙、構成、内容を改善した完全な英語回答を提供してください。45-60秒で話せる長さ（約130-180語）の英語にしてください。",
+  "improved_response_japanese": "上記の改善版英語回答の日本語訳をここに記述してください。学習者が内容を理解しやすいよう、自然な日本語で翻訳してください。"
 }}"""
         
         try:
@@ -1242,7 +1250,7 @@ Return ONLY valid JSON with this structure:
             review_data = json.loads(cleaned_response)
             
             # Validate required fields
-            required_fields = ["strengths", "improvements", "specific_suggestions", "score_improvement_tips", "improved_response"]
+            required_fields = ["strengths", "improvements", "specific_suggestions", "score_improvement_tips", "improved_response", "improved_response_japanese"]
             for field in required_fields:
                 if field not in review_data:
                     raise ExternalAPIError("OpenAI", f"Missing required field: {field}")
