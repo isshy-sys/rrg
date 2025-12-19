@@ -79,8 +79,8 @@ jobs:
 
   # Backend デプロイジョブ
   deploy-backend:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.backend == 'true' || github.event_name == 'workflow_dispatch'
+    needs: [detect-changes, deploy-frontend]
+    if: always() && (needs.detect-changes.outputs.backend == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     
     steps:
@@ -114,6 +114,9 @@ jobs:
       #     cd backend
       #     python -m flake8 . --exclude=alembic
       #   continue-on-error: false
+      
+      - name: Wait before deployment
+        run: sleep 30
       
       - name: Deploy to Azure App Service (Backend)
         uses: azure/webapps-deploy@v3
