@@ -105,12 +105,9 @@ export default function FlashcardsReviewPage() {
       console.error('Failed to delete phrase:', err);
       // Still move to next card even if deletion fails
       moveToNextCard();
-    }
-    
-    // Shorter delay to prevent UI blocking
-    setTimeout(() => {
+    } finally {
       setIsUpdating(false);
-    }, 100);
+    }
   };
 
   const handleNotYet = async () => {
@@ -131,12 +128,9 @@ export default function FlashcardsReviewPage() {
       console.error('Failed to update phrase:', err);
       // Still move to next card even if update fails
       moveToNextCard();
-    }
-    
-    // Shorter delay to prevent UI blocking
-    setTimeout(() => {
+    } finally {
       setIsUpdating(false);
-    }, 100);
+    }
   };
 
   const moveToNextCard = () => {
@@ -281,23 +275,12 @@ export default function FlashcardsReviewPage() {
               phrase={currentPhrase}
               onMastered={handleMastered}
               onNotYet={handleNotYet}
+              isUpdating={isUpdating}
             />
           )
         )}
 
-        {/* Loading Overlay - Simplified */}
-        {isUpdating && (
-          <div className="fixed top-4 right-4 z-50">
-            <div className="surface-card rounded-lg p-3 shadow-lg">
-              <div className="flex items-center space-x-2">
-                <LoadingSpinner />
-                <p className="text-sm" style={{ color: 'var(--foreground-muted)' }}>
-                  処理中...
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+
       </main>
     </div>
   );

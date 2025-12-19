@@ -7,13 +7,14 @@ interface FlashCardProps {
   phrase: SavedPhrase;
   onMastered: () => void;
   onNotYet: () => void;
+  isUpdating?: boolean;
 }
 
 /**
  * FlashCard component for displaying and reviewing saved phrases.
  * Implements card flip animation and mastery tracking.
  */
-export default function FlashCard({ phrase, onMastered, onNotYet }: FlashCardProps) {
+export default function FlashCard({ phrase, onMastered, onNotYet, isUpdating = false }: FlashCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleFlip = () => {
@@ -106,20 +107,30 @@ export default function FlashCard({ phrase, onMastered, onNotYet }: FlashCardPro
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onNotYet();
+            if (!isUpdating) onNotYet();
           }}
-          className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-200 text-gray-800 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-300 transition-colors"
+          disabled={isUpdating}
+          className={`flex-1 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold transition-colors ${
+            isUpdating 
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+              : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+          }`}
         >
-          まだ
+          {isUpdating ? '処理中...' : 'まだ'}
         </button>
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onMastered();
+            if (!isUpdating) onMastered();
           }}
-          className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-green-500 text-white rounded-lg text-sm sm:text-base font-semibold hover:bg-green-600 transition-colors"
+          disabled={isUpdating}
+          className={`flex-1 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold transition-colors ${
+            isUpdating 
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+              : 'bg-green-500 text-white hover:bg-green-600'
+          }`}
         >
-          覚えた
+          {isUpdating ? '処理中...' : '覚えた'}
         </button>
       </div>
     </div>
