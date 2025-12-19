@@ -70,10 +70,9 @@ export default function AudioRecorder({
         'audio/wav'               // WAV if available (rare in browsers)
       ];
       
-      // Fallback types for older browsers
+      // Fallback types for older browsers (excluding MP4 due to Whisper compatibility issues)
       const fallbackTypes = [
-        'audio/webm',
-        'audio/mp4'
+        'audio/webm'  // Remove MP4 as it causes issues with Whisper API
       ];
       
       // Try supported formats in order of Whisper compatibility

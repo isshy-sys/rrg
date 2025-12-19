@@ -551,14 +551,13 @@ export async function transcribeAudio(audioBlob: Blob, problemId: string, retryC
     return res.json();
   } catch (err) {
     if (err instanceof APIError) {
-      // For persistent API errors, provide a fallback option
+      // For persistent API errors, throw the error
       if (retryCount >= 2) {
-        console.error('❌ Transcription failed after retries. Offering fallback option.');
+        console.error('❌ Transcription failed after retries.');
         throw new APIError(
-          '音声の文字起こしに失敗しました。手動で回答を入力するか、ページを再読み込みして再度お試しください。',
+          '音声の文字起こしに失敗しました。ページを再読み込みして再度お試しください。',
           { 
             originalError: err.details,
-            fallbackAvailable: true,
             retryCount: retryCount
           }
         );
