@@ -23,7 +23,7 @@ export default function Home() {
     checkAuthAndRedirect();
   }, [router]);
 
-  // Show loading spinner while checking authentication
+  // Show loading spinner while checking authentication and redirecting
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--background)' }}>
       <LoadingSpinner />

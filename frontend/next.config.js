@@ -10,7 +10,7 @@ const nextConfig = {
   },
   assetPrefix: '',
   skipTrailingSlashRedirect: true,
-  generateBuildId: () => 'build',
+  generateBuildId: () => `build-${Date.now()}`,
   experimental: {
     typedRoutes: false,
   },
