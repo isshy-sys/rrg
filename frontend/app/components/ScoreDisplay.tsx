@@ -15,7 +15,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { ScoringResponse, ModelAnswerResponse, Problem, AIReviewResponse } from '../lib/types';
+import { ScoringResponse, ModelAnswerResponse, Problem } from '../lib/types';
 import { generateModelAnswer, savePhrase } from '../lib/api-client';
 import LoadingSpinner from './LoadingSpinner';
 
@@ -42,7 +42,7 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
   
   // AI添削機能の状態
   const [showAIReview, setShowAIReview] = useState(false);
-  const [aiReview, setAiReview] = useState<AIReviewResponse | null>(null);
+  const [aiReview, setAiReview] = useState<any>(null);
   const [isLoadingAIReview, setIsLoadingAIReview] = useState(false);
   const [aiReviewError, setAiReviewError] = useState<string | null>(null);
   
@@ -888,28 +888,9 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
                 {/* Model Answer Text - Responsive */}
                 <div>
                   <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">模範解答</h3>
-                  
-                  {/* English Model Answer */}
-                  <div className="bg-gray-50 rounded-lg p-4 sm:p-6 mb-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        🇺🇸 English
-                      </span>
-                    </div>
+                  <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
                     <p className="text-sm sm:text-base text-gray-800 leading-relaxed whitespace-pre-wrap">
                       {modelAnswer.model_answer}
-                    </p>
-                  </div>
-
-                  {/* Japanese Translation */}
-                  <div className="bg-blue-50 rounded-lg p-4 sm:p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        🇯🇵 日本語訳
-                      </span>
-                    </div>
-                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                      {modelAnswer.japanese_translation || '日本語訳を生成中...'}
                     </p>
                   </div>
                 </div>
@@ -1174,28 +1155,8 @@ export default function ScoreDisplay({ scoringResult, taskType = 'task3', isMock
                       )}
                     </button>
                   </div>
-                  {/* English Improved Response */}
-                  <div className="mb-3">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        🇺🇸 English
-                      </span>
-                    </div>
-                    <div className="text-sm text-emerald-800 leading-relaxed whitespace-pre-wrap bg-white rounded p-3 border border-emerald-200">
-                      {aiReview.improved_response}
-                    </div>
-                  </div>
-
-                  {/* Japanese Translation */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        🇯🇵 日本語訳
-                      </span>
-                    </div>
-                    <div className="text-sm text-emerald-700 leading-relaxed bg-emerald-50 rounded p-3 border border-emerald-200">
-                      {aiReview.improved_response_japanese || '日本語訳を生成中...'}
-                    </div>
+                  <div className="text-sm text-emerald-800 leading-relaxed whitespace-pre-wrap bg-white rounded p-3 border border-emerald-200">
+                    {aiReview.improved_response}
                   </div>
                   <div className="mt-2 space-y-1">
                     <p className="text-xs text-emerald-700">

@@ -43,7 +43,6 @@ export interface Task1ScoringResponse {
 
 export interface ModelAnswerResponse {
   model_answer: string;
-  japanese_translation?: string;  // 日本語訳
   highlighted_phrases: Array<{
     text: string;
     category: string;
@@ -68,15 +67,6 @@ export interface SavedPhrase {
   category?: string;
   is_mastered: boolean;
   created_at: string;
-}
-
-export interface AIReviewResponse {
-  strengths: string[];
-  improvements: string[];
-  specific_suggestions: string;
-  score_improvement_tips: string;
-  improved_response: string;
-  improved_response_japanese?: string;  // 改善版回答の日本語訳
 }
 
 export interface Task1Question {
