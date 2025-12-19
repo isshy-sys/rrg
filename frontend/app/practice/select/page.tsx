@@ -62,10 +62,26 @@ export default function PracticeSelectPage() {
 
       console.log('🎲 Generating Task 1 problem...');
       
-      // Generate Task 1 problem
-      const problem = await generateProblem(userIdentifier, 'task1');
-      
-      console.log('✅ Task 1 problem generated:', problem.problem_id);
+      let problem;
+      try {
+        // Generate Task 1 problem
+        problem = await generateProblem(userIdentifier, 'task1');
+        console.log('✅ Task 1 problem generated:', problem.problem_id);
+      } catch (apiError) {
+        console.warn('⚠️ API problem generation failed, using fallback question:', apiError);
+        
+        // Fallback to a sample question if API fails
+        problem = {
+          problem_id: `task1-fallback-${Date.now()}`,
+          question: "Describe a memorable experience from your childhood. Explain why this experience was important to you and how it influenced your life.",
+          preparation_time: 15,
+          speaking_time: 45,
+          task_type: "task1",
+          created_at: new Date().toISOString()
+        };
+        
+        console.log('✅ Using fallback Task 1 problem:', problem.problem_id);
+      }
       
       // Store problem data in session storage
       sessionStorage.setItem('currentProblem', JSON.stringify(problem));
@@ -76,8 +92,17 @@ export default function PracticeSelectPage() {
     } catch (error) {
       console.error('❌ Task 1 problem generation failed:', error);
       
-      // Show error message
-      alert(error instanceof Error ? error.message : 'Task1の問題生成に失敗しました。もう一度お試しください。');
+      // Show detailed error message
+      let errorMessage = 'Task1の問題生成に失敗しました。';
+      if (error instanceof Error) {
+        errorMessage += `\n詳細: ${error.message}`;
+        console.error('Error details:', error);
+      }
+      
+      // Also log the full error object for debugging
+      console.error('Full error object:', error);
+      
+      alert(errorMessage + '\n\nもう一度お試しください。');
     } finally {
       setIsGenerating(false);
       setGeneratingTask(null);
@@ -99,10 +124,28 @@ export default function PracticeSelectPage() {
 
       console.log('🎲 Generating Task 4 problem...');
       
-      // Generate Task 4 problem
-      const problem = await generateProblem(userIdentifier, 'task4');
-
-      console.log('✅ Task 4 problem generated:', problem.problem_id);
+      let problem;
+      try {
+        // Generate Task 4 problem
+        problem = await generateProblem(userIdentifier, 'task4');
+        console.log('✅ Task 4 problem generated:', problem.problem_id);
+      } catch (apiError) {
+        console.warn('⚠️ API problem generation failed, using fallback question:', apiError);
+        
+        // Fallback to a sample question if API fails
+        problem = {
+          problem_id: `task4-fallback-${Date.now()}`,
+          question: "Using points and examples from the lecture, explain the concept discussed by the professor.",
+          lecture_script: "In today's lecture, we'll discuss the concept of biomimicry - the practice of learning from and mimicking the strategies found in nature to solve human design challenges. For example, the design of Velcro was inspired by burr seeds that stick to animal fur. Similarly, the streamlined shape of bullet trains was inspired by the beak of kingfisher birds, which allows them to dive into water with minimal splash.",
+          lecture_audio_url: null, // No audio in fallback
+          preparation_time: 20,
+          speaking_time: 60,
+          task_type: "task4",
+          created_at: new Date().toISOString()
+        };
+        
+        console.log('✅ Using fallback Task 4 problem:', problem.problem_id);
+      }
       // Store problem data in session storage
       sessionStorage.setItem('currentProblem', JSON.stringify(problem));
 
@@ -112,7 +155,18 @@ export default function PracticeSelectPage() {
 
     } catch (error) {
       console.error('❌ Task 4 problem generation failed:', error);
-      alert(error instanceof Error ? error.message : 'Task4の問題生成に失敗しました。もう一度お試しください。');
+      
+      // Show detailed error message
+      let errorMessage = 'Task4の問題生成に失敗しました。';
+      if (error instanceof Error) {
+        errorMessage += `\n詳細: ${error.message}`;
+        console.error('Error details:', error);
+      }
+      
+      // Also log the full error object for debugging
+      console.error('Full error object:', error);
+      
+      alert(errorMessage + '\n\nもう一度お試しください。');
     } finally {
       setIsGenerating(false);
       setGeneratingTask(null);
