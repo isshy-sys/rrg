@@ -38,8 +38,10 @@ function ListeningPhaseContent() {
 
   // Get full audio URL
   const getAudioUrl = (relativeUrl: string): string => {
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    return `${apiBaseUrl}${relativeUrl}`;
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+    const fullUrl = `${apiBaseUrl}${relativeUrl}`;
+    console.log('🎵 Generated audio URL:', fullUrl);
+    return fullUrl;
   };
 
   // Load problem data
@@ -108,6 +110,10 @@ function ListeningPhaseContent() {
   useEffect(() => {
     if (problem && audioRef.current && problem.lecture_audio_url) {
       const audio = audioRef.current;
+      
+      // Log audio URL for debugging
+      console.log('🎵 Audio URL:', problem.lecture_audio_url);
+      console.log('🎵 Full audio URL:', `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000'}${problem.lecture_audio_url}`);
       
       // Set up event listeners
       const handleLoadedMetadata = () => {

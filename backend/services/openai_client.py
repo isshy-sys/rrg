@@ -276,7 +276,11 @@ class OpenAIClient:
             error_message = str(e)
             logger.error(f"Full error message: {error_message}")
             
-            if "could not be decoded" in error_message.lower() or "format is not supported" in error_message.lower():
+            # Check for authentication errors first
+            if "401" in error_message or "Access denied" in error_message or "invalid subscription key" in error_message.lower():
+                logger.error("Azure OpenAI authentication failed - check API key and endpoint configuration")
+                raise SpeechProcessingError(f"Azure OpenAI認証エラーです。APIキーまたはエンドポイントの設定を確認してください。管理者にお問い合わせください。")
+            elif "could not be decoded" in error_message.lower() or "format is not supported" in error_message.lower():
                 if filename.endswith('.webm') or 'webm' in filename.lower():
                     raise SpeechProcessingError(f"WebM音声ファイルの処理に失敗しました。ブラウザの録音設定に問題がある可能性があります。ページを再読み込みして、もう一度録音をお試しください。")
                 else:
