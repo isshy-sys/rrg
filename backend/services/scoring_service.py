@@ -132,9 +132,9 @@ class ScoringService:
             # Validate inputs
             if not transcript or not transcript.strip():
                 raise ScoringError("Transcript cannot be empty")
-            # reading_text is optional for Task4
+            # reading_text is optional for Task4 - convert empty strings to None
             if reading_text is not None and not reading_text.strip():
-                raise ScoringError("Reading text cannot be empty when provided")
+                reading_text = None
             if not lecture_script or not lecture_script.strip():
                 raise ScoringError("Lecture script cannot be empty")
             if not question or not question.strip():
@@ -361,9 +361,9 @@ class ScoringService:
             logger.info("Starting model answer generation")
             
             # Validate inputs
-            # reading_text is optional for Task4
+            # reading_text is optional for Task4 - convert empty strings to None
             if reading_text is not None and not reading_text.strip():
-                raise ScoringError("Reading text cannot be empty when provided")
+                reading_text = None
             if not lecture_script or not lecture_script.strip():
                 raise ScoringError("Lecture script cannot be empty")
             if not question or not question.strip():

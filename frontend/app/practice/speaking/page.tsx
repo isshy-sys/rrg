@@ -96,12 +96,19 @@ function SpeakingPhaseContent() {
               question: problem.question,
             });
           } else {
-            scoringResult = await evaluateResponse({
+            // Build request object conditionally for Task 2/3/4
+            const evaluationRequest: any = {
               problem_id: problem.problem_id,
               transcript: transcript,
-              reading_text: problem.reading_text || '',
               lecture_script: problem.lecture_script || '',
-            });
+            };
+            
+            // Only include reading_text if it exists and is not empty (Task 3 has reading, Task 4 doesn't)
+            if (problem.reading_text && problem.reading_text.trim()) {
+              evaluationRequest.reading_text = problem.reading_text;
+            }
+            
+            scoringResult = await evaluateResponse(evaluationRequest);
           }
           
           console.log('✅ Scoring complete in', (Date.now() - scoringStart) / 1000, 'seconds');

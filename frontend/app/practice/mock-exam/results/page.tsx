@@ -71,12 +71,20 @@ export default function MockExamResultsPage() {
             } else {
               // Score Task 2, 3, 4
               const { evaluateResponse } = await import('../../../lib/api-client');
-              const result = await evaluateResponse({
+              
+              // Build request object conditionally
+              const evaluationRequest: any = {
                 problem_id: problem.problem_id,
                 transcript: transcript,
-                reading_text: problem.reading_text,
                 lecture_script: problem.lecture_script
-              });
+              };
+              
+              // Only include reading_text if it exists and is not empty (Task 3 has reading, Task 4 doesn't)
+              if (problem.reading_text && problem.reading_text.trim()) {
+                evaluationRequest.reading_text = problem.reading_text;
+              }
+              
+              const result = await evaluateResponse(evaluationRequest);
               score = result.overall_score;
               feedback = result;
             }
