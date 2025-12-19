@@ -137,8 +137,9 @@ export default function FlashcardsReviewPage() {
     if (currentIndex < phrases.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      // Reached the end, show completion message
-      setError('全てのフレーズを確認しました！');
+      // Reached the end, go back to the first card for continuous review
+      setCurrentIndex(0);
+      console.log('🔄 Reached end of cards, returning to first card');
     }
   };
 
@@ -206,7 +207,7 @@ export default function FlashcardsReviewPage() {
   }
 
   const currentPhrase = phrases[currentIndex];
-  const isComplete = currentIndex >= phrases.length;
+  const isComplete = phrases.length === 0;
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
@@ -231,8 +232,13 @@ export default function FlashcardsReviewPage() {
         {/* Progress Display */}
         <div className="text-center mb-8">
           <p className="text-lg sm:text-xl font-semibold gold-accent">
-            進捗: {Math.min(currentIndex + 1, phrases.length)} / {phrases.length}
+            カード: {phrases.length > 0 ? currentIndex + 1 : 0} / {phrases.length}
           </p>
+          {phrases.length > 0 && (
+            <p className="text-sm text-gray-600 mt-1">
+              「覚えた」でカードを削除、「まだ」で次のカードへ
+            </p>
+          )}
         </div>
 
         {/* Flashcard or Completion Message */}
