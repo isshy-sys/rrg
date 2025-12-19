@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { isAuthenticated, getUserIdentifier } from '../../lib/auth';
-import { getPhrases, updatePhraseMastered } from '../../lib/api-client';
+import { getPhrases, updatePhraseMastered, deletePhrase } from '../../lib/api-client';
 import type { SavedPhrase } from '../../lib/types';
 import FlashCard from '../../components/FlashCard';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -82,13 +82,27 @@ export default function FlashcardsReviewPage() {
       if (!userIdentifier) return;
 
       const currentPhrase = phrases[currentIndex];
-      await updatePhraseMastered(currentPhrase.id, userIdentifier, true);
+      
+      // Delete the phrase since it's mastered
+      await deletePhrase(currentPhrase.id, userIdentifier);
 
-      // Move to next card
-      moveToNextCard();
+      // Remove the phrase from the current list
+      const updatedPhrases = phrases.filter((_, index) => index !== currentIndex);
+      setPhrases(updatedPhrases);
+
+      // Adjust current index if necessary
+      if (updatedPhrases.length === 0) {
+        // No more phrases left
+        setError('全てのフレーズを確認しました！');
+      } else if (currentIndex >= updatedPhrases.length) {
+        // If we were at the last card, go to the previous one
+        setCurrentIndex(updatedPhrases.length - 1);
+      }
+      // If currentIndex < updatedPhrases.length, stay at the same index (which now shows the next card)
+
     } catch (err) {
-      console.error('Failed to update phrase:', err);
-      // Still move to next card even if update fails
+      console.error('Failed to delete phrase:', err);
+      // Still move to next card even if deletion fails
       moveToNextCard();
     } finally {
       setIsUpdating(false);
