@@ -89,7 +89,7 @@ export default function HomePage() {
             ようこそ！
           </h2>
           <p className="text-lg sm:text-xl gold-accent font-light tracking-wide">
-            TOEFL Speaking Task 3の練習を始めましょう
+            TOEFL Speaking の練習を始めましょう
           </p>
         </div>
 
