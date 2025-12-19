@@ -105,14 +105,14 @@ export default function HomePage() {
                 border: '1px solid var(--border-color-gold)'
               }}>
                 <svg className="w-7 h-7 gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
-                フラッシュカード
+                復習
               </h3>
               <p className="text-sm sm:text-base font-light tracking-wide" style={{ color: 'var(--foreground-muted)' }}>
-                フラッシュカードで復習
+                過去の問題を振りかえります
               </p>
             </div>
           </button>
