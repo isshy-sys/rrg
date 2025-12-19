@@ -47,7 +47,8 @@ class ProblemGeneratorService:
     def __init__(self):
         """Initialize the problem generator service."""
         self.openai_client = get_openai_client()
-        self.audio_storage_path = os.getenv("AUDIO_STORAGE_PATH", "backend/audio_files")
+        # Use /home directory for Azure App Service persistence
+        self.audio_storage_path = os.getenv("AUDIO_STORAGE_PATH", "/home/audio_files")
         
         # Create audio storage directory if it doesn't exist
         os.makedirs(self.audio_storage_path, exist_ok=True)

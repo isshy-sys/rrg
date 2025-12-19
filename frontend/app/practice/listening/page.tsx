@@ -113,7 +113,9 @@ function ListeningPhaseContent() {
       
       // Log audio URL for debugging
       console.log('🎵 Audio URL:', problem.lecture_audio_url);
+      console.log('🎵 Environment variable NEXT_PUBLIC_API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
       console.log('🎵 Full audio URL:', `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000'}${problem.lecture_audio_url}`);
+      console.log('🎵 Audio element src:', audio.src);
       
       // Set up event listeners
       const handleLoadedMetadata = () => {
@@ -145,7 +147,23 @@ function ListeningPhaseContent() {
       
       const handleError = (e: Event) => {
         console.error('Audio playback error:', e);
-        setError('音声の再生に失敗しました。');
+        console.error('Audio src:', audio.src);
+        console.error('Audio readyState:', audio.readyState);
+        console.error('Audio networkState:', audio.networkState);
+        
+        // Test if the URL is accessible
+        fetch(audio.src)
+          .then(response => {
+            console.log('Audio URL fetch test:', response.status, response.statusText);
+            if (!response.ok) {
+              console.error('Audio file not found or not accessible');
+            }
+          })
+          .catch(fetchError => {
+            console.error('Audio URL fetch failed:', fetchError);
+          });
+        
+        setError(`音声の再生に失敗しました。URL: ${audio.src}`);
       };
       
       audio.addEventListener('loadedmetadata', handleLoadedMetadata);
@@ -155,11 +173,25 @@ function ListeningPhaseContent() {
       audio.addEventListener('ended', handleEnded);
       audio.addEventListener('error', handleError);
       
-      // Auto-play audio
-      audio.play().catch((err) => {
-        console.error('Auto-play failed:', err);
-        setError('音声の自動再生に失敗しました。再生ボタンをクリックしてください。');
-      });
+      // Test if audio file exists before attempting to play
+      fetch(audio.src, { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            console.log('✅ Audio file exists, attempting to play');
+            // Auto-play audio
+            audio.play().catch((err) => {
+              console.error('Auto-play failed:', err);
+              setError('音声の自動再生に失敗しました。再生ボタンをクリックしてください。');
+            });
+          } else {
+            console.error('❌ Audio file not found:', response.status, response.statusText);
+            setError(`音声ファイルが見つかりません (${response.status}). 問題生成をやり直してください。`);
+          }
+        })
+        .catch(fetchError => {
+          console.error('❌ Audio file accessibility test failed:', fetchError);
+          setError('音声ファイルにアクセスできません。ネットワーク接続を確認してください。');
+        });
       
       return () => {
         audio.removeEventListener('loadedmetadata', handleLoadedMetadata);

@@ -30,15 +30,19 @@ load_dotenv()
 
 # Log environment variable status for debugging
 print("🔧 Environment variables loaded:")
-print(f"  AZURE_OPENAI_API_KEY: {'✅ Set' if os.getenv('AZURE_OPENAI_API_KEY') else '❌ Not set'}")
+print(f"  AZURE_OPENAI_API_KEY: {'✅ Set (' + os.getenv('AZURE_OPENAI_API_KEY', '')[:10] + '...)' if os.getenv('AZURE_OPENAI_API_KEY') else '❌ Not set'}")
 print(f"  AZURE_OPENAI_ENDPOINT: {os.getenv('AZURE_OPENAI_ENDPOINT') or '❌ Not set'}")
 print(f"  AZURE_OPENAI_WHISPER_DEPLOYMENT: {os.getenv('AZURE_OPENAI_WHISPER_DEPLOYMENT') or '❌ Not set'}")
+print(f"  AZURE_OPENAI_API_VERSION: {os.getenv('AZURE_OPENAI_API_VERSION') or '❌ Not set'}")
+print(f"  AUDIO_STORAGE_PATH: {os.getenv('AUDIO_STORAGE_PATH') or '❌ Not set'}")
 
 # Verify critical environment variables (warn but don't fail)
 if not os.getenv("AZURE_OPENAI_API_KEY"):
     print("⚠️  WARNING: AZURE_OPENAI_API_KEY environment variable is not set")
 if not os.getenv("AZURE_OPENAI_ENDPOINT"):
     print("⚠️  WARNING: AZURE_OPENAI_ENDPOINT environment variable is not set")
+if not os.getenv("AZURE_OPENAI_WHISPER_DEPLOYMENT"):
+    print("⚠️  WARNING: AZURE_OPENAI_WHISPER_DEPLOYMENT environment variable is not set")
 
 app = FastAPI(
     title="TOEFL Speaking Master API",
@@ -62,7 +66,8 @@ app.include_router(phrases.router)
 app.include_router(task1_archive.router)
 
 # Mount static files for audio
-audio_storage_path = os.getenv("AUDIO_STORAGE_PATH", "backend/audio_files")
+# Use /home directory for Azure App Service persistence
+audio_storage_path = os.getenv("AUDIO_STORAGE_PATH", "/home/audio_files")
 os.makedirs(audio_storage_path, exist_ok=True)
 app.mount("/audio", StaticFiles(directory=audio_storage_path), name="audio")
 
