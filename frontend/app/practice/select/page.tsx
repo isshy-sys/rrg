@@ -282,6 +282,42 @@ export default function PracticeSelectPage() {
               disabled={isGenerating}
             />
           ))}
+          
+          {/* Task1 Special Training Button */}
+          <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 sm:p-8 relative overflow-hidden opacity-75 hover:opacity-90">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-xl"></div>
+            <div className="relative">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{
+                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0.1) 100%)',
+                border: '1px solid rgba(249, 115, 22, 0.3)'
+              }}>
+                <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
+                （工事中）Task1特訓
+              </h3>
+              <p className="text-sm text-gray-600 mb-3">
+                Task1に特化した集中練習
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  🚧 準備中
+                </span>
+                <button
+                  onClick={() => {
+                    // TODO: Task1特訓機能の実装
+                    console.log('Task1特訓 - 工事中');
+                  }}
+                  disabled={true}
+                  className="text-xs text-gray-400 cursor-not-allowed"
+                >
+                  Coming Soon
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
