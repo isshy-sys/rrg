@@ -104,9 +104,12 @@ export default function FlashcardsReviewPage() {
       console.error('Failed to delete phrase:', err);
       // Still move to next card even if deletion fails
       moveToNextCard();
-    } finally {
-      setIsUpdating(false);
     }
+    
+    // Add a small delay to make the transition feel more natural
+    setTimeout(() => {
+      setIsUpdating(false);
+    }, 300);
   };
 
   const handleNotYet = async () => {
@@ -126,9 +129,12 @@ export default function FlashcardsReviewPage() {
       console.error('Failed to update phrase:', err);
       // Still move to next card even if update fails
       moveToNextCard();
-    } finally {
-      setIsUpdating(false);
     }
+    
+    // Add a small delay to make the transition feel more natural
+    setTimeout(() => {
+      setIsUpdating(false);
+    }, 300);
   };
 
   const moveToNextCard = () => {
@@ -207,9 +213,9 @@ export default function FlashcardsReviewPage() {
   const isComplete = currentIndex >= phrases.length;
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'var(--background)' }}>
       {/* Header */}
-      <header className="surface-elevated backdrop-blur-sm">
+      <header className="surface-elevated backdrop-blur-sm flex-shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
           <h1 className="text-xl sm:text-2xl font-bold text-luxury">
             フラッシュカード
@@ -225,7 +231,7 @@ export default function FlashcardsReviewPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col overflow-hidden">
         {/* Progress Display */}
         <div className="text-center mb-8">
           <p className="text-lg sm:text-xl font-semibold gold-accent">
@@ -234,6 +240,7 @@ export default function FlashcardsReviewPage() {
         </div>
 
         {/* Flashcard or Completion Message */}
+        <div className="flex-1 flex items-center justify-center">
         {isComplete ? (
           <div className="max-w-2xl mx-auto text-center">
             <div className="surface-card rounded-2xl p-8 sm:p-12">
@@ -276,12 +283,18 @@ export default function FlashcardsReviewPage() {
             />
           )
         )}
+        </div>
 
-        {/* Loading Overlay */}
+        {/* Loading Overlay - Improved */}
         {isUpdating && (
-          <div className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50">
-            <div className="surface-card rounded-lg p-4">
-              <LoadingSpinner />
+          <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 backdrop-blur-sm">
+            <div className="surface-card rounded-xl p-6 shadow-2xl">
+              <div className="flex flex-col items-center space-y-3">
+                <LoadingSpinner />
+                <p className="text-sm" style={{ color: 'var(--foreground-muted)' }}>
+                  処理中...
+                </p>
+              </div>
             </div>
           </div>
         )}
