@@ -66,21 +66,21 @@ function SpeakingPhaseContent() {
     });
 
     try {
-      // API functions are mocked for development - no actual imports needed
+      // Import API functions dynamically to avoid circular dependencies
+      const { transcribeAudio, evaluateResponse, evaluateTask1Response } = await import('../../lib/api-client');
       
       // Wrap the entire process in a race with timeout
       await Promise.race([
         (async () => {
-          // Step 1: Transcribe audio (完全モック実装 - v2)
-          console.log('📝 Starting mock transcription...');
+          // Step 1: Transcribe audio
+          console.log('📝 Starting transcription...');
           setProcessingStage('transcribing');
           const transcriptionStart = Date.now();
           
-          // 完全モック実装 - バックエンド接続なし
-          await new Promise(resolve => setTimeout(resolve, 2000)); // 2秒待機
-          const transcript = "This is a sample transcription for testing purposes. The actual transcription feature is currently under development.";
+          const transcriptionResult = await transcribeAudio(blob, problem.problem_id);
+          const transcript = transcriptionResult.transcript;
           
-          console.log('✅ Transcription complete (mock) in', (Date.now() - transcriptionStart) / 1000, 'seconds');
+          console.log('✅ Transcription complete in', (Date.now() - transcriptionStart) / 1000, 'seconds');
           console.log('📄 Transcript:', transcript.substring(0, 100) + '...');
 
           // Step 2: Evaluate response based on task type
@@ -90,49 +90,18 @@ function SpeakingPhaseContent() {
           
           let scoringResult;
           if (selectedTask === 'task1') {
-            // モック実装 - Task1スコアリング (Task1ScoringResponse型)
-            await new Promise(resolve => setTimeout(resolve, 3000)); // 3秒待機
-            scoringResult = {
-              overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
-              delivery_feedback: "発音とイントネーションが良好です。",
-              language_use_feedback: "文法と語彙の使用が適切です。",
-              topic_dev_feedback: "トピックの展開が論理的です。",
-              improvement_tips: [
-                "より詳細な説明があるとさらに良い",
-                "語彙の多様性を増やすことを推奨",
-                "発音の明瞭さを向上させる"
-              ],
-              strengths: [
-                "質問に対して適切に回答している",
-                "具体的な例を挙げて説明している",
-                "論理的な構成で話している"
-              ],
-              user_transcript: transcript
-            };
+            scoringResult = await evaluateTask1Response({
+              problem_id: problem.problem_id,
+              transcript: transcript,
+              question: problem.question,
+            });
           } else {
-            // モック実装 - Task2/3/4スコアリング (ScoringResponse型)
-            await new Promise(resolve => setTimeout(resolve, 3000)); // 3秒待機
-            scoringResult = {
-              overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
-              delivery: {
-                score: Math.floor(Math.random() * 3) + 2,
-                feedback: "発音とイントネーションが良好です。"
-              },
-              language_use: {
-                score: Math.floor(Math.random() * 3) + 2,
-                feedback: "文法と語彙の使用が適切です。"
-              },
-              topic_development: {
-                score: Math.floor(Math.random() * 3) + 2,
-                feedback: "トピックの展開が論理的です。"
-              },
-              improvement_tips: [
-                "より具体的な詳細を含めることを推奨",
-                "接続詞の使用を増やして流暢性を向上",
-                "時間管理を改善する"
-              ],
-              user_transcript: transcript
-            };
+            scoringResult = await evaluateResponse({
+              problem_id: problem.problem_id,
+              transcript: transcript,
+              reading_text: problem.reading_text || '',
+              lecture_script: problem.lecture_script || '',
+            });
           }
           
           console.log('✅ Scoring complete in', (Date.now() - scoringStart) / 1000, 'seconds');

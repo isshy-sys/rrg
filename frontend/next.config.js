@@ -16,7 +16,7 @@ const nextConfig = {
   },
   // 無効化したページを除外
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  // ESLintエラーを一時的に無視（デプロイのため）
+  // ESLintエラーを一時的に無視（本番デプロイのため）
   eslint: {
     ignoreDuringBuilds: true,
   },

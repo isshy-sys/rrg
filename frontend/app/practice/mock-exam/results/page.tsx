@@ -58,59 +58,31 @@ export default function MockExamResultsPage() {
           let feedback = null;
 
           try {
-            // モック実装 - 完全にローカル処理
-            console.log(`🤖 Mock scoring for Task ${taskNumber}:`, problem.problem_id);
-            
-            // 2-3秒待機してスコアリングをシミュレート
-            await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
-            
             if (taskNumber === 1) {
-              // Mock Task 1 scoring - Task1ScoringResponse型に合わせる
-              const result = {
-                overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
-                delivery_feedback: "発音とイントネーションが良好です。",
-                language_use_feedback: "文法と語彙の使用が適切です。",
-                topic_dev_feedback: "トピックの展開が論理的です。",
-                improvement_tips: [
-                  "より詳細な説明があるとさらに良い",
-                  "語彙の多様性を増やすことを推奨"
-                ],
-                strengths: [
-                  "質問に対して適切に回答している",
-                  "具体的な例を挙げて説明している"
-                ],
-                user_transcript: transcript
-              };
+              // Score Task 1
+              const { evaluateTask1Response } = await import('../../../lib/api-client');
+              const result = await evaluateTask1Response({
+                problem_id: problem.problem_id,
+                transcript: transcript,
+                question: problem.question
+              });
               score = result.overall_score;
               feedback = result;
             } else {
-              // Mock Task 2, 3, 4 scoring - ScoringResponse型に合わせる
-              const result = {
-                overall_score: Math.floor(Math.random() * 3) + 2, // 2-4のスコア
-                delivery: {
-                  score: Math.floor(Math.random() * 3) + 2,
-                  feedback: "発音とイントネーションが良好です。"
-                },
-                language_use: {
-                  score: Math.floor(Math.random() * 3) + 2,
-                  feedback: "文法と語彙の使用が適切です。"
-                },
-                topic_development: {
-                  score: Math.floor(Math.random() * 3) + 2,
-                  feedback: "トピックの展開が論理的です。"
-                },
-                improvement_tips: [
-                  "より具体的な詳細を含めることを推奨",
-                  "接続詞の使用を増やして流暢性を向上"
-                ],
-                user_transcript: transcript
-              };
+              // Score Task 2, 3, 4
+              const { evaluateResponse } = await import('../../../lib/api-client');
+              const result = await evaluateResponse({
+                problem_id: problem.problem_id,
+                transcript: transcript,
+                reading_text: problem.reading_text,
+                lecture_script: problem.lecture_script
+              });
               score = result.overall_score;
               feedback = result;
             }
           } catch (error) {
             console.error(`❌ Failed to score Task ${taskNumber}:`, error);
-            score = 2; // Default to 2 if scoring fails (mock)
+            score = 0; // Default to 0 if scoring fails
           }
 
           taskResults.push({
