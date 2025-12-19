@@ -477,14 +477,14 @@ export default function Task1QuestionCard({
                       AI模擬回答
                     </h3>
                     <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-5 border border-emerald-200/50 dark:border-emerald-700/50">
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <div className="flex-1">
-                          <div className="bg-white/80 dark:bg-gray-800/80 rounded-lg p-4 shadow-sm border border-emerald-200/30 dark:border-emerald-700/30">
-                            <p className="text-sm leading-relaxed text-emerald-900 dark:text-emerald-100 font-medium">
-                              {aiReview.improved_response}
-                            </p>
-                          </div>
+                      <div className="mb-4">
+                        <div className="bg-white/80 dark:bg-gray-800/80 rounded-lg p-4 shadow-sm border border-emerald-200/30 dark:border-emerald-700/30">
+                          <p className="text-sm leading-relaxed text-emerald-900 dark:text-emerald-100 font-medium">
+                            {aiReview.improved_response}
+                          </p>
                         </div>
+                      </div>
+                      <div className="flex justify-center mb-3">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -495,7 +495,7 @@ export default function Task1QuestionCard({
                             }
                           }}
                           disabled={isGeneratingAudio}
-                          className="flex items-center gap-2 px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium shadow-sm flex-shrink-0"
+                          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium shadow-sm"
                           title={isPlaying ? "音声を停止" : "AI模擬回答を音声で聞く"}
                         >
                           {isGeneratingAudio ? (
