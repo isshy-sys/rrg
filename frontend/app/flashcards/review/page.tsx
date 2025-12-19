@@ -76,6 +76,7 @@ export default function FlashcardsReviewPage() {
   const handleMastered = async () => {
     if (isUpdating || phrases.length === 0) return;
 
+    console.log('🟢 Mastered button clicked, starting deletion process');
     setIsUpdating(true);
     try {
       const userIdentifier = getUserIdentifier();
@@ -106,15 +107,16 @@ export default function FlashcardsReviewPage() {
       moveToNextCard();
     }
     
-    // Add a small delay to make the transition feel more natural
+    // Shorter delay to prevent UI blocking
     setTimeout(() => {
       setIsUpdating(false);
-    }, 300);
+    }, 100);
   };
 
   const handleNotYet = async () => {
     if (isUpdating || phrases.length === 0) return;
 
+    console.log('🟡 Not yet button clicked, updating phrase');
     setIsUpdating(true);
     try {
       const userIdentifier = getUserIdentifier();
@@ -131,10 +133,10 @@ export default function FlashcardsReviewPage() {
       moveToNextCard();
     }
     
-    // Add a small delay to make the transition feel more natural
+    // Shorter delay to prevent UI blocking
     setTimeout(() => {
       setIsUpdating(false);
-    }, 300);
+    }, 100);
   };
 
   const moveToNextCard = () => {
@@ -240,7 +242,7 @@ export default function FlashcardsReviewPage() {
         </div>
 
         {/* Flashcard or Completion Message */}
-        {isComplete ? (
+        {isComplete || phrases.length === 0 ? (
           <div className="max-w-2xl mx-auto text-center">
             <div className="surface-card rounded-2xl p-8 sm:p-12">
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{
@@ -283,11 +285,11 @@ export default function FlashcardsReviewPage() {
           )
         )}
 
-        {/* Loading Overlay - Improved */}
+        {/* Loading Overlay - Simplified */}
         {isUpdating && (
-          <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 backdrop-blur-sm">
-            <div className="surface-card rounded-xl p-6 shadow-2xl">
-              <div className="flex flex-col items-center space-y-3">
+          <div className="fixed top-4 right-4 z-50">
+            <div className="surface-card rounded-lg p-3 shadow-lg">
+              <div className="flex items-center space-x-2">
                 <LoadingSpinner />
                 <p className="text-sm" style={{ color: 'var(--foreground-muted)' }}>
                   処理中...
