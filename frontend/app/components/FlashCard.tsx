@@ -37,7 +37,6 @@ export default function FlashCard({ phrase, onMastered, onNotYet }: FlashCardPro
         onClick={handleFlip}
         style={{ 
           height: '400px',
-          maxHeight: '60vh',
           cursor: 'pointer',
           perspective: '1000px'
         }}

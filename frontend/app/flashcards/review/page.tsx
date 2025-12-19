@@ -213,9 +213,9 @@ export default function FlashcardsReviewPage() {
   const isComplete = currentIndex >= phrases.length;
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'var(--background)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--background)' }}>
       {/* Header */}
-      <header className="surface-elevated backdrop-blur-sm flex-shrink-0">
+      <header className="surface-elevated backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
           <h1 className="text-xl sm:text-2xl font-bold text-luxury">
             フラッシュカード
@@ -231,7 +231,7 @@ export default function FlashcardsReviewPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col overflow-hidden">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Progress Display */}
         <div className="text-center mb-8">
           <p className="text-lg sm:text-xl font-semibold gold-accent">
@@ -240,7 +240,6 @@ export default function FlashcardsReviewPage() {
         </div>
 
         {/* Flashcard or Completion Message */}
-        <div className="flex-1 flex items-center justify-center">
         {isComplete ? (
           <div className="max-w-2xl mx-auto text-center">
             <div className="surface-card rounded-2xl p-8 sm:p-12">
@@ -283,7 +282,6 @@ export default function FlashcardsReviewPage() {
             />
           )
         )}
-        </div>
 
         {/* Loading Overlay - Improved */}
         {isUpdating && (
