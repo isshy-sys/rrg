@@ -284,7 +284,8 @@ export default function PracticeSelectPage() {
           ))}
           
           {/* Task1 Special Training Button */}
-          <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 sm:p-8 relative overflow-hidden opacity-75 hover:opacity-90">
+          <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 sm:p-8 relative overflow-hidden hover:shadow-xl cursor-pointer"
+               onClick={() => router.push('/practice/task1-training')}>
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-xl"></div>
             <div className="relative">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{
@@ -296,24 +297,23 @@ export default function PracticeSelectPage() {
                 </svg>
               </div>
               <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
-                （工事中）Task1特訓
+                Task1特訓
               </h3>
               <p className="text-sm text-gray-600 mb-3">
                 Task1に特化した集中練習
               </p>
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                  🚧 準備中
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  ✨ NEW
                 </span>
                 <button
                   onClick={() => {
-                    // TODO: Task1特訓機能の実装
-                    console.log('Task1特訓 - 工事中');
+                    router.push('/practice/task1-training');
                   }}
-                  disabled={true}
-                  className="text-xs text-gray-400 cursor-not-allowed"
+                  disabled={false}
+                  className="text-xs text-orange-600 hover:text-orange-700 transition-colors"
                 >
-                  Coming Soon
+                  開始する
                 </button>
               </div>
             </div>
