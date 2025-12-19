@@ -53,8 +53,9 @@ export interface ModelAnswerResponse {
 
 export interface PracticeSessionSummary {
   id: string;
+  session_id: string;
   task_type: string;
-  overall_score?: number;
+  overall_score?: number | null;
   created_at: string;
   question?: string;
 }
