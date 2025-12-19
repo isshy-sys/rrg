@@ -31,8 +31,7 @@ jobs:
   # Frontend デプロイジョブ
   deploy-frontend:
     needs: detect-changes
-    # 強制実行（初回デプロイのため）
-    if: always()
+    if: needs.detect-changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     
     steps:
@@ -78,10 +77,10 @@ jobs:
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONTEND }}
           package: './frontend/out'
 
-  # Backend デプロイジョブ（一時的に無効化 - Backendは動作中）
+  # Backend デプロイジョブ
   deploy-backend:
     needs: detect-changes
-    if: false  # 一時的に無効化
+    if: needs.detect-changes.outputs.backend == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     
     steps:
