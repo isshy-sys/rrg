@@ -1,35 +1,15 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated, clearSessionToken, getUserIdentifier } from '../lib/auth';
-import { fetchHistory } from '../lib/api-client';
-// import { PracticeSessionSummary } from '../lib/types';
-import RecentSessions from '../components/RecentSessions';
+import { isAuthenticated, clearSessionToken } from '../lib/auth';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [sessions, setSessions] = useState<any[]>([]);
-  const [isLoadingSessions, setIsLoadingSessions] = useState(false);
   const router = useRouter();
 
-  const loadHistory = useCallback(async () => {
-    setIsLoadingSessions(true);
-    try {
-      const userIdentifier = getUserIdentifier();
-      if (userIdentifier) {
-        const history = await fetchHistory(userIdentifier, 3);
-        setSessions(history.sessions);
-      }
-    } catch (error) {
-      console.error('Failed to load history:', error);
-      // Don't show error to user, just show empty state
-      setSessions([]);
-    } finally {
-      setIsLoadingSessions(false);
-    }
-  }, []);
+
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -38,12 +18,11 @@ export default function HomePage() {
         router.push('/login');
       } else {
         setIsLoading(false);
-        loadHistory();
       }
     };
 
     checkAuth();
-  }, [router, loadHistory]);
+  }, [router]);
 
   const handleLogout = () => {
     clearSessionToken();
@@ -139,17 +118,7 @@ export default function HomePage() {
           </button>
         </div>
 
-        {/* Recent Sessions */}
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-px flex-1" style={{ background: 'var(--border-color)' }}></div>
-            <h3 className="text-lg sm:text-xl font-semibold tracking-wide" style={{ color: 'var(--foreground)' }}>
-              最近の学習履歴
-            </h3>
-            <div className="h-px flex-1" style={{ background: 'var(--border-color)' }}></div>
-          </div>
-          <RecentSessions sessions={sessions} isLoading={isLoadingSessions} />
-        </div>
+
       </main>
     </div>
   );
