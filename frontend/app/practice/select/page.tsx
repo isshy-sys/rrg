@@ -283,9 +283,10 @@ export default function PracticeSelectPage() {
             />
           ))}
           
-          {/* Task1 Special Training Button */}
+          {/* Task1 Special Training Button - Hidden but functionality preserved */}
           <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 sm:p-8 relative overflow-hidden hover:shadow-xl cursor-pointer"
-               onClick={() => router.push('/practice/task1-training')}>
+               onClick={() => router.push('/practice/task1-training')}
+               style={{ display: 'none' }}>
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-xl"></div>
             <div className="relative">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{
